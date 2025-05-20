@@ -2,6 +2,7 @@
 
 Consignas Finales para curso Python 
 
+
 ## Pasos para probar
 
 1. Clonar el repositorio:
@@ -16,11 +17,34 @@ Consignas Finales para curso Python
 
 6. Abrir en el navegador: http://127.0.0.1:8000/
 
-## Funcionalidades
 
-- Crear Vehiculo
-- Crear Fabricante
-- Crear Tipo
-- Publicaciones
-- Buscar por marca
-- Acerca de
+
+
+## Estructura del Proyecto
+
+
+**Aplicacion/**  
+  Carpeta de la app principal que contiene las vistas, modelos y URLs.
+
+- **templates/**  
+  acercade.html
+  agregar_fabricante.html
+  agregar_tipo.html
+  agregar_vehiculos.html
+  buscar_vehiculos.html
+  listar_vehiculos.html
+
+
+
+## Funcionalidades principales y sus URLs
+
+-----------------------------------------------------------------------------------------------------
+| Funcionalidad                    | Ubicación                      | URL accesible                 |
+|----------------------------------|--------------------------------|-------------------------------|
+| Listar posts                     | `Aplicacion/views.py`          | `/post_listar`                |
+| Página Acerca de                 | `Aplicacion/views.py`          | `/acerca`                     |
+| Agregar nuevo post               | `Aplicacion/views.py`          | `/post_agregar`               |
+| Buscar posts                     | `Aplicacion/views.py`          | `/post_buscar`                |
+| Agregar fabricante               | `Aplicacion/views.py`          | `/post_agregar_fabricante`    |
+| Agregar tipo                     | `Aplicacion/views.py`          | `/post_agregar_tipo`          |
+-----------------------------------------------------------------------------------------------------
