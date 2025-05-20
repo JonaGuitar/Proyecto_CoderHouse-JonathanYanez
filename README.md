@@ -7,7 +7,7 @@ Consignas Finales para curso Python
 
 1. Clonar el repositorio:
 
-2. Crear entorno virtual y activarlo:
+2. Crear entorno virtual y activarlo: (yo lo hice sin directorio virutal)
 
 3. Instalar Django:
 
