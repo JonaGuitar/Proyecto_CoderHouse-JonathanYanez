@@ -1,0 +1,13 @@
+{% extends "Main/base.html" %}
+
+{% block content %}
+
+    <div class="p-5 mb-4 bg-secondary text-white rounded-3 shadow">
+        <div class="container py-5">
+            <h1 class="display-5 fw-bold">Bienvenido a mi blog de autos</h1>
+            <p class="col-md-8 fs-4">Comparte mi pasión por los motores, las rutas y la tecnología automotriz. Encontrarás reseñas, tips, noticias y reflexiones.</p>
+            <a href="{% url 'Aplicacion:post_listar' %}" class="btn btn-warning btn-lg mt-3">Ver publicaciones</a>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% extends "Main/base.html" %}
+
+{% block content_title %}
+    Acerca de
+{% endblock content_title %}
+
+{% block content %}
+
+    <div class="card shadow mb-5">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <!-- Ícono a la izquierda -->
+                <div class="col-md-2 text-center">
+                    <i class="bi bi-info-circle-fill display-1 text-primary"></i>
+                </div>
+
+                <!-- Texto a la derecha -->
+                <div class="col-md-10">
+                    </br>
+                    <h4 class="card-title">¿Qué es este sitio?</h4>
+                    </br>
+                    <p class="card-text">
+                        Esta es una web desarrollada como parte de la consigna final del curso de Python de CoderHouse.
+                        Su objetivo es simular un blog centrado en el mundo de los automóviles.
+                    </p>
+                    <p class="card-text">
+                        Aquí puedes listar, agregar, actualizar o eliminar publicaciones relacionadas con autos. 
+                        Es un ejemplo práctico para aplicar conceptos como vistas, modelos, rutas y plantillas usando Django.
+                    </p>
+                    <p class="card-text">
+                        ¡Gracias por visitar este proyecto!
+                    </p>
+                    </br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

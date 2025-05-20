@@ -1,0 +1,61 @@
+{% extends "Main/base.html" %}
+
+{% block content_title %}
+    Agregar Tipo de Vehiculo
+{% endblock content_title %}
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="id_tipo" class="form-label">Tipo</label>
+                    {{ form.tipo }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_descripcion" class="form-label">Descripción</label>
+                    {{ form.descripcion }}
+                </div>
+
+                </br>
+                </br>
+
+                <button type="submit" class="btn btn-success">Guardar</button>
+                <a href="{% url 'Aplicacion:post_listar' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+
+
+            <hr>
+
+            <h4 class="mt-4">Tipos de Vehículos Registrados</h4>
+
+            <table class="table table-striped mt-2">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tipo in tipos %}
+                        <tr>
+                            <td>{{ tipo.tipo }}</td>
+                            <td>{{ tipo.descripcion }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td>No hay tipos de vehículos registrados aún.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>    
+
+{% endblock content %}

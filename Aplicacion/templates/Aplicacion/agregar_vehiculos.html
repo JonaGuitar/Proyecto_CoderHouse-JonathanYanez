@@ -1,0 +1,38 @@
+{% extends "Main/base.html" %}
+
+{% block content_title %}
+    Agregar Vehículo
+{% endblock content_title %}
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="id_marca" class="form-label">Marca</label>
+                    {{ form.marca }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_modelo" class="form-label">Modelo</label>
+                    {{ form.modelo }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_pais" class="form-label">País</label>
+                    {{ form.pais }}
+                </div>
+
+                </br>
+                </br>
+
+                <button type="submit" class="btn btn-success">Guardar</button>
+                <a href="{% url 'Aplicacion:post_listar' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}
