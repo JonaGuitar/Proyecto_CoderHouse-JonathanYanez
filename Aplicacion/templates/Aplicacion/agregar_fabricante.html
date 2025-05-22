@@ -51,6 +51,17 @@
                             <td>{{ fabricante.nombre }}</td>
                             <td>{{ fabricante.pais_origen }}</td>
                             <td>
+                                <!-- Botón Editar (link) -->
+                                <button type="button" class="btn btn-warning btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalEditarFabricante"
+                                        data-id="{{ fabricante.id }}"
+                                        data-nombre="{{ fabricante.nombre }}"
+                                        data-pais="{{ fabricante.pais_origen }}">
+                                    Editar
+                                </button>
+
+                                <!-- Botón Eliminar (form POST) -->
                                 <form method="post" action="{% url 'Aplicacion:post_eliminar_fabricante' fabricante.id %}" style="display:inline;">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
@@ -68,5 +79,63 @@
 
         </div>
     </div>    
+
+
+
+    <!-- Modal Editar Fabricante -->
+    <div class="modal fade" id="modalEditarFabricante" tabindex="-1" aria-labelledby="modalEditarFabricanteLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formEditarFabricante" method="post" action="">
+                    {% csrf_token %}
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="modalEditarFabricanteLabel">Editar Fabricante</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="edit_nombre" class="form-label">Fabricante</label>
+                            <input type="text" class="form-control" id="edit_nombre" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_pais_origen" class="form-label">País de Origen</label>
+                            <input type="text" class="form-control" id="edit_pais_origen" name="pais_origen" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    {% block scripts %}
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const modalEditar = document.getElementById('modalEditarFabricante')
+                const formEditar = document.getElementById('formEditarFabricante')
+
+                modalEditar.addEventListener('show.bs.modal', function (event) {
+                    const button = event.relatedTarget
+                    const id = button.getAttribute('data-id')
+                    const nombre = button.getAttribute('data-nombre')
+                    const pais = button.getAttribute('data-pais')
+
+                    document.getElementById('edit_nombre').value = nombre
+                    document.getElementById('edit_pais_origen').value = pais
+
+                    // Usar base de URL generada por Django, reemplazando el "0"
+                    const urlBase = "{% url 'Aplicacion:post_editar_fabricante' 0 %}".replace(/0\/$/, '')
+                    formEditar.action = `${urlBase}${id}/`
+                })
+            })
+        </script>
+
+    {% endblock scripts %}
+
 
 {% endblock content %}

@@ -55,6 +55,19 @@ def post_agregar_fabricante(request):
         'fabricantes': fabricantes
     })
     
+      
+    
+def post_editar_fabricante(request, fabricante_id):
+    fabricante = get_object_or_404(Fabricante, id=fabricante_id)
+
+    if request.method == 'POST':
+        form = FabricanteForm(request.POST, instance=fabricante)
+        if form.is_valid():
+            form.save()
+            return redirect('Aplicacion:post_agregar_fabricante')
+    else:
+        form = FabricanteForm(instance=fabricante)
+
     
     
 def post_eliminar_fabricante(request, fabricante_id):
@@ -87,7 +100,21 @@ def post_agregar_tipo(request):
         'form': form,
         'tipos': tipos,
     })
+
     
+    
+def post_editar_tipo(request, tipo_id):
+    tipo = get_object_or_404(TipoVehiculo, id=tipo_id)
+
+    if request.method == 'POST':
+        form = TipoVehiculoForm(request.POST, instance=tipo)
+        if form.is_valid():
+            form.save()
+            return redirect('Aplicacion:post_agregar_tipo')
+    else:
+        form = TipoVehiculoForm(instance=tipo)    
+    
+
     
 def post_eliminar_tipo(request, tipo_id):
     if request.method == 'POST':
