@@ -28,6 +28,8 @@
                 <a href="{% url 'Aplicacion:post_listar' %}" class="btn btn-secondary">Cancelar</a>
             </form>
 
+            </br>
+            </br>
 
             <hr>
 
@@ -38,6 +40,7 @@
                     <tr>
                         <th>Tipo</th>
                         <th>Descripción</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,12 +48,18 @@
                         <tr>
                             <td>{{ tipo.tipo }}</td>
                             <td>{{ tipo.descripcion }}</td>
+                            <td>
+                                <form method="post" action="{% url 'Aplicacion:post_eliminar_tipo' tipo.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                            </td>
                         </tr>
-                    {% empty %}
-                        <tr>
-                            <td>No hay tipos de vehículos registrados aún.</td>
-                        </tr>
-                    {% endfor %}
+                        {% empty %}
+                            <tr>
+                                <td colspan="3">No hay tipos registrados aún.</td>
+                            </tr>
+                        {% endfor %}
                 </tbody>
             </table>
 
