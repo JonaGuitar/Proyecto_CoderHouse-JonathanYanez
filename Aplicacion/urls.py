@@ -10,6 +10,8 @@ urlpatterns = [
     path('post_buscar', views.post_buscar, name='post_buscar'),
     
     path('post_agregar', views.post_agregar, name='post_agregar'),
+    path('post_eliminar_vehiculo/<int:vehiculo_id>/', views.post_eliminar_vehiculo, name='post_eliminar_vehiculo'),
+    path('post_editar_vehiculo/editar/<int:vehiculo_id>/', views.post_editar_vehiculo, name='post_editar_vehiculo'),
 
     path('post_agregar_fabricante', views.post_agregar_fabricante, name='post_agregar_fabricante'),
     path('post_eliminar_fabricante/<int:fabricante_id>/', views.post_eliminar_fabricante, name='post_eliminar_fabricante'),

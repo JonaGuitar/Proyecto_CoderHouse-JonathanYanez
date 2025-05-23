@@ -9,22 +9,45 @@ def post_listar(request):
     return render(request, "Aplicacion/listar_vehiculos.html", context={"Posts": post_listar})
 
 
-
 def acerca(request):
     return render(request, 'Aplicacion/acercade.html')
 
  
  
+
 def post_agregar(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            form.save() 
-            return redirect('Aplicacion:post_listar')
+            form.save()
+            return redirect('Aplicacion:post_agregar')  # Quedarse en la misma página
+
     else:
         form = PostForm()
-    
-    return render(request, 'Aplicacion/agregar_vehiculos.html', {'form': form})
+
+    vehiculos = Post.objects.all()  # <- Agrega esta línea
+    return render(request, 'Aplicacion/agregar_vehiculos.html', {'form': form, 'vehiculos': vehiculos})
+
+
+
+def post_editar_vehiculo(request, vehiculo_id):
+    vehiculo = get_object_or_404(Post, id=vehiculo_id)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=vehiculo)
+        if form.is_valid():
+            form.save()
+            return redirect('Aplicacion:post_agregar')  # Nombre correcto
+    else:
+        form = PostForm(instance=vehiculo)
+
+
+
+def post_eliminar_vehiculo(request, vehiculo_id):
+    if request.method == 'POST':
+        vehiculo = get_object_or_404(Post, id=vehiculo_id)
+        vehiculo.delete()
+    return redirect('Aplicacion:post_agregar')  # Nombre correcto
 
 
 
@@ -37,6 +60,15 @@ def post_buscar(request):
         post_buscar = Post.objects.all()
         
     return render(request, "Aplicacion/buscar_vehiculos.html", context={"Posts": post_buscar})
+
+
+
+
+
+
+
+
+
 
 
 
@@ -69,19 +101,15 @@ def post_editar_fabricante(request, fabricante_id):
         form = FabricanteForm(instance=fabricante)
 
     
-    
+
 def post_eliminar_fabricante(request, fabricante_id):
     if request.method == 'POST':
         fabricante = get_object_or_404(Fabricante, id=fabricante_id)
         fabricante.delete()
     return redirect('Aplicacion:post_agregar_fabricante')  
     
-    
-# def post_eliminar_fabricante(request, fabricante_id):
-#     fabricante = Fabricante.objects.get(id=fabricante_id)
-#     fabricante.delete()
-#     fabricante = Fabricante.objects.all()
-#     return redirect('Aplicacion:post_agregar_fabricante')    
+
+
 
 
 
@@ -102,6 +130,7 @@ def post_agregar_tipo(request):
     })
 
     
+
     
 def post_editar_tipo(request, tipo_id):
     tipo = get_object_or_404(TipoVehiculo, id=tipo_id)
