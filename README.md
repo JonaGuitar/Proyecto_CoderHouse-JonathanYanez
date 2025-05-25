@@ -27,14 +27,14 @@ Consignas Finales para curso Python
   Carpeta de la app principal que contiene las vistas, modelos y URLs.
 
 - **templates/**  
+  Carpeta de la app principal que contiene los templates
+
   acercade.html
   agregar_fabricante.html
   agregar_tipo.html
   agregar_vehiculos.html
   buscar_vehiculos.html
   listar_vehiculos.html
-
-
 
 ## Funcionalidades principales y sus URLs
 
