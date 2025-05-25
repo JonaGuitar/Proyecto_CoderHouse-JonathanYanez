@@ -41,10 +41,16 @@ Consignas Finales para curso Python
 -----------------------------------------------------------------------------------------------------
 | Funcionalidad                    | Ubicación                      | URL accesible                 |
 |----------------------------------|--------------------------------|-------------------------------|
-| Listar posts                     | `Aplicacion/views.py`          | `/post_listar`                |
 | Página Acerca de                 | `Aplicacion/views.py`          | `/acerca`                     |
-| Agregar nuevo post               | `Aplicacion/views.py`          | `/post_agregar`               |
-| Buscar posts                     | `Aplicacion/views.py`          | `/post_buscar`                |
-| Agregar fabricante               | `Aplicacion/views.py`          | `/post_agregar_fabricante`    |
-| Agregar tipo                     | `Aplicacion/views.py`          | `/post_agregar_tipo`          |
+| Listar Publicaciones             | `Aplicacion/views.py`          | `/post_listar`                |
+| Buscar Publicaciones             | `Aplicacion/views.py`          | `/post_buscar`                |
+| Agregar Vehiculo                 | `Aplicacion/views.py`          | `/post_agregar`               |
+| Actualizar Vehiculo              | `Aplicacion/views.py`          | `/post_editar_vehiculo`       |
+| Eliminar Vehiculo                | `Aplicacion/views.py`          | `/post_eliminar_vehiculo`     |
+| Agregar Fabricante               | `Aplicacion/views.py`          | `/post_agregar_fabricante`    |
+| Actualizar Fabricante            | `Aplicacion/views.py`          | `/post_editar_fabricante`     |
+| Eliminar Fabricante              | `Aplicacion/views.py`          | `/post_eliminar_fabricante`   |
+| Agregar Tipo                     | `Aplicacion/views.py`          | `/post_agregar_tipo`          |
+| Actualizar Tipo                  | `Aplicacion/views.py`          | `/post_editar_fabricante`     |
+| Eliminar Tipo                    | `Aplicacion/views.py`          | `/post_eliminar_fabricante`   |          
 -----------------------------------------------------------------------------------------------------

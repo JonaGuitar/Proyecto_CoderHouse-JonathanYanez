@@ -13,21 +13,6 @@ def acerca(request):
     return render(request, 'Aplicacion/acercade.html')
 
  
- 
-
-# def post_agregar(request):
-#     if request.method == 'POST':
-#         form = PostForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('Aplicacion:post_agregar')  # Quedarse en la misma página
-
-#     else:
-#         form = PostForm()
-
-#     vehiculos = Post.objects.all()  # <- Agrega esta línea
-#     return render(request, 'Aplicacion/agregar_vehiculos.html', {'form': form, 'vehiculos': vehiculos})
-
 
 def post_agregar(request):
     if request.method == 'POST':
@@ -82,15 +67,6 @@ def post_buscar(request):
         post_buscar = Post.objects.all()
         
     return render(request, "Aplicacion/buscar_vehiculos.html", context={"Posts": post_buscar})
-
-
-
-
-
-
-
-
-
 
 
 
