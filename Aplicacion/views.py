@@ -4,6 +4,7 @@ from .forms import PostForm, FabricanteForm, TipoVehiculoForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
+from django.db.models import Q
 
 
 def acerca(request):
@@ -15,11 +16,16 @@ def post_listar(request):
     return render(request, "Aplicacion/listar_vehiculos.html", context={"Posts": post_listar})
 
 
+
 def post_buscar(request):
     busqueda = request.GET.get("busqueda", None)
-    
+
     if busqueda:
-        post_buscar = Post.objects.filter(marca__icontains=busqueda)
+        post_buscar = Post.objects.filter(
+            Q(marca__icontains=busqueda) |
+            Q(modelo__icontains=busqueda) |
+            Q(pais__icontains=busqueda)
+        )
     else:
         post_buscar = Post.objects.all()
         

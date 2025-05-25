@@ -36,13 +36,3 @@ class PostForm(forms.ModelForm):
             'pais': forms.TextInput(attrs={'class': 'form-control'}),
         }  
         
-# class PostForm(forms.ModelForm):
-#     class Meta:
-#         model = Post
-#         fields = ['marca', 'modelo', 'pais']
-#         #fields = ['marca', 'modelo', 'pais', 'fabricante', 'tipo_vehiculo']
-#         widgets = {
-#             'marca': forms.TextInput(attrs={'class': 'form-control'}),
-#             'modelo': forms.TextInput(attrs={'class': 'form-control'}),
-#             'pais': forms.TextInput(attrs={'class': 'form-control'}),
-#         }
