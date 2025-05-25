@@ -53,4 +53,5 @@ Consignas Finales para curso Python
 | Agregar Tipo                     | `Aplicacion/views.py`          | `/post_agregar_tipo`          |
 | Actualizar Tipo                  | `Aplicacion/views.py`          | `/post_editar_fabricante`     |
 | Eliminar Tipo                    | `Aplicacion/views.py`          | `/post_eliminar_fabricante`   |          
+| Login                            | `Main/templates/basehtml`      | `/login_modal`                |
 -----------------------------------------------------------------------------------------------------
