@@ -26,6 +26,17 @@
                     {{ form.pais }}
                 </div>
 
+                <div class="mb-3">
+                    <label for="id_fabricante" class="form-label">Fabricante</label>
+                    {{ form.fabricante }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_tipo_vehiculo" class="form-label">Tipo de Vehículo</label>
+                    {{ form.tipo_vehiculo }}
+                </div>
+
+
                 </br>
                 </br>
 
@@ -48,6 +59,8 @@
                         <th>Marca</th>
                         <th>Modelo</th>
                         <th>Pais</th>
+                        <th>Fabricante</th>
+                        <th>Tipo de Vehiculo</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,6 +69,8 @@
                             <td>{{ vehiculo.marca }}</td>
                             <td>{{ vehiculo.modelo }}</td>
                             <td>{{ vehiculo.pais }}</td>
+                            <td>{{ vehiculo.fabricante }}</td>
+                            <td>{{ vehiculo.tipo_vehiculo }}</td>
                             <td>
                                 <!-- Botón Editar (link) -->
                                 <button type="button" class="btn btn-warning btn-sm"
@@ -64,7 +79,9 @@
                                         data-id="{{ vehiculo.id }}"
                                         data-marca="{{ vehiculo.marca }}"
                                         data-modelo="{{ vehiculo.modelo }}"
-                                        data-pais="{{ vehiculo.pais }}">
+                                        data-pais="{{ vehiculo.pais }}"
+                                        data-fabricante="{{ vehiculo.fabricante.id }}"
+                                        data-tipo="{{ vehiculo.tipo_vehiculo.id }}">                                       
                                     Editar
                                 </button>
 
@@ -111,6 +128,23 @@
                             <label for="edit_pais" class="form-label">País de Origen</label>
                             <input type="text" class="form-control" id="edit_pais" name="pais" required>
                         </div>
+                        <div class="mb-3">
+                            <label for="edit_fabricante" class="form-label">Fabricante</label>
+                            <select class="form-select" id="edit_fabricante" name="fabricante" required>
+                                {% for fab in fabricantes %}
+                                    <option value="{{ fab.id }}">{{ fab.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="edit_tipo" class="form-label">Tipo de Vehículo</label>
+                            <select class="form-select" id="edit_tipo" name="tipo_vehiculo" required>
+                                {% for tipo in tipos %}
+                                    <option value="{{ tipo.id }}">{{ tipo.tipo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Actualizar</button>
@@ -135,10 +169,14 @@
                     const marca = button.getAttribute('data-marca')
                     const modelo = button.getAttribute('data-modelo')
                     const pais = button.getAttribute('data-pais')
+                    const fabricante = button.getAttribute('data-fabricante')
+                    const tipo = button.getAttribute('data-tipo')                    
 
                     document.getElementById('edit_marca').value = marca
                     document.getElementById('edit_modelo').value = modelo
                     document.getElementById('edit_pais').value = pais
+                    document.querySelector('#edit_fabricante').value = parseInt(fabricante)
+                    document.querySelector('#edit_tipo').value = parseInt(tipo)
 
                     // Usar base de URL generada por Django, reemplazando el "0"
                     const urlBase = "/Aplicacion/post_editar_vehiculo/editar/";

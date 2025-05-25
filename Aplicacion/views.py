@@ -15,18 +15,40 @@ def acerca(request):
  
  
 
+# def post_agregar(request):
+#     if request.method == 'POST':
+#         form = PostForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('Aplicacion:post_agregar')  # Quedarse en la misma página
+
+#     else:
+#         form = PostForm()
+
+#     vehiculos = Post.objects.all()  # <- Agrega esta línea
+#     return render(request, 'Aplicacion/agregar_vehiculos.html', {'form': form, 'vehiculos': vehiculos})
+
+
 def post_agregar(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('Aplicacion:post_agregar')  # Quedarse en la misma página
+            return redirect('Aplicacion:post_agregar')
 
     else:
         form = PostForm()
 
-    vehiculos = Post.objects.all()  # <- Agrega esta línea
-    return render(request, 'Aplicacion/agregar_vehiculos.html', {'form': form, 'vehiculos': vehiculos})
+    vehiculos = Post.objects.all()
+    fabricantes = Fabricante.objects.all()       # <-- Agregado
+    tipos = TipoVehiculo.objects.all()           # <-- Agregado
+
+    return render(request, 'Aplicacion/agregar_vehiculos.html', {
+        'form': form,
+        'vehiculos': vehiculos,
+        'fabricantes': fabricantes,
+        'tipos': tipos,
+    })
 
 
 
