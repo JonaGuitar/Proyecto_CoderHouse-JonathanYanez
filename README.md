@@ -55,3 +55,9 @@ Consignas Finales para curso Python
 | Eliminar Tipo                    | `Aplicacion/views.py`          | `/post_eliminar_fabricante`   |          
 | Login                            | `Aplicacion/views.py`          | `/login_modal`                |
 -----------------------------------------------------------------------------------------------------
+
+
+
+## LOGIN
+
+  para el Login hay que tener creado un super usuario en django,  no se utilizo LoginView ya que lo implemente con un modal
