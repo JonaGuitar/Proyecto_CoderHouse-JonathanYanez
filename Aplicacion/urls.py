@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
-#from django.contrib.auth import views as auth_views
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import LogoutView
 
 app_name = "Aplicacion"
 
@@ -19,5 +20,10 @@ urlpatterns = [
     
     path('post_agregar_tipo', views.post_agregar_tipo, name='post_agregar_tipo'),
     path('post_eliminar_tipo/<int:tipo_id>/', views.post_eliminar_tipo, name='post_eliminar_tipo'),
-    path('post_editar_tipo/<int:tipo_id>/', views.post_editar_tipo, name='post_editar_tipo'),    
+    path('post_editar_tipo/<int:tipo_id>/', views.post_editar_tipo, name='post_editar_tipo'),   
+    
+    path('login-modal/', views.login_modal, name='login_modal'),
+    
+    #path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    #path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
