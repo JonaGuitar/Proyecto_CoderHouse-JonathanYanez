@@ -40,7 +40,7 @@
                         <li class="nav-item"><a class="nav-link" href="{% url "Aplicacion:post_agregar_tipo" %}">Tipo</a></li>             
                         <li class="nav-item"><a class="nav-link" href="{% url "Aplicacion:post_agregar" %}">Vehiculos</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url "Aplicacion:acerca" %}">Acerca de</a></li>   
-                        <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Cerrar Sesion</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Aplicacion:logout' %}">Cerrar Sesion</a></li>
                     {% else %}
                         <li class="nav-item"><a class="nav-link" href="{% url "Aplicacion:post_listar" %}">Publicaciones</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url "Aplicacion:post_buscar" %}">Buscar</a></li>

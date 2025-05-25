@@ -23,7 +23,5 @@ urlpatterns = [
     path('post_editar_tipo/<int:tipo_id>/', views.post_editar_tipo, name='post_editar_tipo'),   
     
     path('login-modal/', views.login_modal, name='login_modal'),
-    
-    #path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    #path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('logout/', views.logout_view, name='logout'),
 ]

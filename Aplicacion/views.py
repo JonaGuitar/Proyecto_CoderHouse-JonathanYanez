@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Fabricante, TipoVehiculo
 from .forms import PostForm, FabricanteForm, TipoVehiculoForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 
 
@@ -174,5 +174,12 @@ def login_modal(request):
             return render(request, 'login_error.html', {'error': 'Credenciales inválidas'})
     else:
         return HttpResponse(status=405)  # Método no permitido si no es POST
+    
+    
+    
+    
+def logout_view(request):
+    logout(request)
+    return redirect('Main:index')  # Asegúrate que este nombre está en tu urls.py
     
     
