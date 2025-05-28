@@ -15,33 +15,56 @@
 
     </br>
 
-    {% for post in Posts %}
 
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="row align-items-center">              
-                    <!-- Ícono o imagen a la izquierda -->
-                    <div class="col-md-2 text-center">
-                    <i class="bi bi-car-front-fill display-4 text-warning"></i>
-                    </div>
-                    
-                    <!-- Contenido a la derecha -->
-                    <div class="col-md-10">
-                    <h5 class="card-title mb-1">Marca: {{ post.marca }}</h5>
-                    <p class="card-text mb-1">Modelo: {{ post.modelo }}</p>
-                    <p class="card-text"><small class="text-muted">Pais: {{ post.pais }}</small></p>
+    {% if Posts %}
+        {% for post in Posts %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row align-items-center">              
+                        <div class="col-md-2 text-center">
+                            <i class="bi bi-car-front-fill display-4 text-warning"></i>
+                        </div>
+                        <div class="col-md-10">
+                            <h5 class="card-title mb-1">Marca: {{ post.marca }}</h5>
+                            <p class="card-text mb-1">Modelo: {{ post.modelo }}</p>
+                            <p class="card-text"><small class="text-muted">País: {{ post.pais }}</small></p>
+                        </div>
                     </div>
                 </div>
+                <div class="card-footer text-muted text-end">
+                    Publicado el {{ post.fecha_publicacion }}
+                </div>
             </div>
-            
-            <div class="card-footer text-muted text-end">
-                Publicado el {{ post.fecha_publicacion }}
+        {% endfor %}
+    {% else %}
+        <!-- Modal Bootstrap si no hay resultados -->
+        {% if se_realizo_busqueda and not Posts %}
+            <div class="modal fade" id="sinResultadosModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title" id="modalLabel">Sin resultados</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                    No se encontraron vehículos que coincidan con la búsqueda.
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+                </div>
             </div>
 
-        </div>
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    var modal = new bootstrap.Modal(document.getElementById('sinResultadosModal'));
+                    modal.show();
+                });
+            </script>
+            {% endif %}
 
-    {% endfor %}
-
+    {% endif %}
 
 {% endblock content %}
 

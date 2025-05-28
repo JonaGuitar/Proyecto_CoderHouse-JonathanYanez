@@ -17,19 +17,35 @@ def post_listar(request):
 
 
 
+# def post_buscar(request):
+#     busqueda = request.GET.get("busqueda", None)
+
+#     if busqueda:
+#         post_buscar = Post.objects.filter(
+#             Q(marca__icontains=busqueda) |
+#             Q(modelo__icontains=busqueda) |
+#             Q(pais__icontains=busqueda)
+#         )
+#     else:
+#         post_buscar = Post.objects.all()
+        
+#     return render(request, "Aplicacion/buscar_vehiculos.html", context={"Posts": post_buscar})
+
+
 def post_buscar(request):
     busqueda = request.GET.get("busqueda", None)
+    se_realizo_busqueda = False
+    post_buscar = Post.objects.none()
 
     if busqueda:
+        se_realizo_busqueda = True
         post_buscar = Post.objects.filter(
             Q(marca__icontains=busqueda) |
             Q(modelo__icontains=busqueda) |
             Q(pais__icontains=busqueda)
         )
-    else:
-        post_buscar = Post.objects.all()
-        
-    return render(request, "Aplicacion/buscar_vehiculos.html", context={"Posts": post_buscar})
+
+    return render(request, "Aplicacion/buscar_vehiculos.html", context={"Posts": post_buscar, "se_realizo_busqueda": se_realizo_busqueda})
 
 
  
