@@ -66,8 +66,36 @@ def post_buscar(request):
     
     
     
+# def post_agregar(request):
+#     fue_creado = False
+
+#     if request.method == 'POST':
+#         form = PostForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('/Aplicacion/post_agregar?creado=1')  # redirige con un parámetro
+#     else:
+#         form = PostForm()
+
+#     if request.GET.get('creado') == '1':
+#         fue_creado = True
+
+#     vehiculos = Post.objects.all()
+#     fabricantes = Fabricante.objects.all()       
+#     tipos = TipoVehiculo.objects.all()           
+
+#     return render(request, 'Aplicacion/agregar_vehiculos.html', {
+#         'form': form,
+#         'vehiculos': vehiculos,
+#         'fabricantes': fabricantes,
+#         'tipos': tipos,
+#         'fue_creado': fue_creado,  # pasas esto al template
+#     })
+
+
 def post_agregar(request):
     fue_creado = False
+    eliminado = request.GET.get('eliminado') == '1'  # 👈 Agrega esta línea
 
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -89,8 +117,10 @@ def post_agregar(request):
         'vehiculos': vehiculos,
         'fabricantes': fabricantes,
         'tipos': tipos,
-        'fue_creado': fue_creado,  # pasas esto al template
+        'fue_creado': fue_creado,
+        'eliminado': eliminado,  # 👈 Y pasa esto al template
     })
+
     
 
 
@@ -110,13 +140,21 @@ def post_editar_vehiculo(request, vehiculo_id):
 
 
 #@login_required
+# def post_eliminar_vehiculo(request, vehiculo_id):
+#     if request.method == 'POST':
+#         vehiculo = get_object_or_404(Post, id=vehiculo_id)
+#         vehiculo.delete()
+    
+#     return redirect('Aplicacion:post_agregar')
+
+
 def post_eliminar_vehiculo(request, vehiculo_id):
     if request.method == 'POST':
         vehiculo = get_object_or_404(Post, id=vehiculo_id)
         vehiculo.delete()
-    
-    return redirect('Aplicacion:post_agregar')
+        return redirect('/Aplicacion/post_agregar?eliminado=1') 
 
+    return redirect('Aplicacion:post_agregar')
    
     
     

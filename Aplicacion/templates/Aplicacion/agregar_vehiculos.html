@@ -85,11 +85,17 @@
                                     Editar
                                 </button>
 
-                                <!-- Botón Eliminar (form POST) -->
-                                <form method="post" action="{% url 'Aplicacion:post_eliminar_vehiculo' vehiculo.id %}" style="display:inline;">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                </form>
+                                <!-- Botón Eliminar (abre modal de confirmación) -->
+                                <button type="button"
+                                        class="btn btn-danger btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalConfirmarEliminacion"
+                                        data-id="{{ vehiculo.id }}">
+                                    Eliminar
+                                </button>
+
+
+                                
                             </td>
                         </tr>
                         {% empty %}
@@ -185,38 +191,100 @@
 
 
 
+    <!-- Modal Éxito al eliminar -->
+    <div class="modal fade" id="modalEliminado" tabindex="-1" aria-labelledby="modalEliminadoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="modalEliminadoLabel">Vehículo eliminado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    El vehículo fue eliminado correctamente.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-    {% block scripts %}
-
+    {% if eliminado %}
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const modalEditar = document.getElementById('modalEditarVehiculo')
-                const formEditar = document.getElementById('formEditarVehiculo')
-
-                modalEditar.addEventListener('show.bs.modal', function (event) {
-                    const button = event.relatedTarget
-                    const id = button.getAttribute('data-id')
-                    const marca = button.getAttribute('data-marca')
-                    const modelo = button.getAttribute('data-modelo')
-                    const pais = button.getAttribute('data-pais')
-                    const fabricante = button.getAttribute('data-fabricante')
-                    const tipo = button.getAttribute('data-tipo')                    
-
-                    document.getElementById('edit_marca').value = marca
-                    document.getElementById('edit_modelo').value = modelo
-                    document.getElementById('edit_pais').value = pais
-                    document.querySelector('#edit_fabricante').value = parseInt(fabricante)
-                    document.querySelector('#edit_tipo').value = parseInt(tipo)
-
-                    // Usar base de URL generada por Django, reemplazando el "0"
-                    const urlBase = "/Aplicacion/post_editar_vehiculo/editar/";
-                    formEditar.action = `${urlBase}${id}/`
-                })
-            })
+            document.addEventListener("DOMContentLoaded", function () {
+                var modal = new bootstrap.Modal(document.getElementById('modalEliminado'));
+                modal.show();
+            });
         </script>
+    {% endif %}
 
-    {% endblock scripts %}
+
+
+    <!-- Modal Confirmar Eliminación -->
+    <div class="modal fade" id="modalConfirmarEliminacion" tabindex="-1" aria-labelledby="modalConfirmarEliminacionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form method="post" id="formEliminar">
+                    {% csrf_token %}
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="modalConfirmarEliminacionLabel">Confirmar eliminación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Estás seguro de que deseas eliminar este vehículo?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% block scripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const modalEliminar = document.getElementById('modalConfirmarEliminacion');
+            const formEliminar = document.getElementById('formEliminar');
+
+            modalEliminar.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                const id = button.getAttribute('data-id');
+
+                formEliminar.action = `/Aplicacion/post_eliminar_vehiculo/${id}/`;
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const modalEditar = document.getElementById('modalEditarVehiculo');
+            const formEditar = document.getElementById('formEditarVehiculo');
+
+            modalEditar.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                const id = button.getAttribute('data-id');
+                const marca = button.getAttribute('data-marca');
+                const modelo = button.getAttribute('data-modelo');
+                const pais = button.getAttribute('data-pais');
+                const fabricante = button.getAttribute('data-fabricante');
+                const tipo = button.getAttribute('data-tipo');
+
+                document.getElementById('edit_marca').value = marca;
+                document.getElementById('edit_modelo').value = modelo;
+                document.getElementById('edit_pais').value = pais;
+                document.querySelector('#edit_fabricante').value = parseInt(fabricante);
+                document.querySelector('#edit_tipo').value = parseInt(tipo);
+
+                formEditar.action = `/Aplicacion/post_editar_vehiculo/editar/${id}/`;
+            });
+        });
+    </script>
+{% endblock scripts %}
+
 
 
 {% endblock content %}
