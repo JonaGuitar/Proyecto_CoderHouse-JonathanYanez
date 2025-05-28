@@ -61,18 +61,24 @@
                                     Editar
                                 </button>
 
-                                <!-- Botón Eliminar (form POST) -->
-                                <form method="post" action="{% url 'Aplicacion:post_eliminar_fabricante' fabricante.id %}" style="display:inline;">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                </form>
+
+                                <!-- Botón Eliminar que abre el modal de confirmación -->
+                                <button type="button" class="btn btn-danger btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#modalConfirmarEliminar" 
+                                        data-id="{{ fabricante.id }}" 
+                                        data-nombre="{{ fabricante.nombre }}">
+                                    Eliminar
+                                </button>                                
                             </td>
                         </tr>
+
                         {% empty %}
                             <tr>
                                 <td colspan="3">No hay fabricantes registrados aún.</td>
                             </tr>
                         {% endfor %}
+
                 </tbody>
             </table>
 
@@ -141,9 +147,60 @@
 
 
 
+    <!-- Modal Éxito al eliminar -->
+    <div class="modal fade" id="modalEliminado" tabindex="-1" aria-labelledby="modalEliminadoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="modalEliminadoLabel">Eliminación exitosa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    El fabricante fue eliminado correctamente.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if eliminado %}
+        <script>
+            var modalEliminado = new bootstrap.Modal(document.getElementById('modalEliminado'))
+            modalEliminado.show()
+        </script>
+    {% endif %}
+
+
+    <!-- Modal Confirmación de eliminación -->
+    <div class="modal fade" id="modalConfirmarEliminar" tabindex="-1" aria-labelledby="modalConfirmarEliminarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formEliminarFabricante" method="post" action="">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalConfirmarEliminarLabel">Confirmar eliminación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Está seguro que desea eliminar al fabricante <strong id="nombreFabricanteEliminar"></strong>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
     {% block scripts %}
 
-        <script>
+        <!-- <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const modalEditar = document.getElementById('modalEditarFabricante')
                 const formEditar = document.getElementById('formEditarFabricante')
@@ -162,7 +219,29 @@
                     formEditar.action = `${urlBase}${id}/`
                 })
             })
+        </script> -->
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Manejar modal confirmación eliminación
+                const modalConfirmarEliminar = document.getElementById('modalConfirmarEliminar')
+                const formEliminar = document.getElementById('formEliminarFabricante')
+                const nombreFabricanteEliminar = document.getElementById('nombreFabricanteEliminar')
+
+                modalConfirmarEliminar.addEventListener('show.bs.modal', function (event) {
+                    const button = event.relatedTarget
+                    const id = button.getAttribute('data-id')
+                    const nombre = button.getAttribute('data-nombre')
+
+                    nombreFabricanteEliminar.textContent = nombre
+
+                    // Construir URL para el form de eliminar (igual que en el botón de eliminar original)
+                    const urlBase = "{% url 'Aplicacion:post_eliminar_fabricante' 0 %}".replace(/0\/?$/, '')
+                    formEliminar.action = `${urlBase}${id}/`
+                })
+            })
         </script>
+
 
     {% endblock scripts %}
 

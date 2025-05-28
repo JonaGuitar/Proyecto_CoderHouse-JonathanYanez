@@ -93,14 +93,12 @@
                                         data-id="{{ vehiculo.id }}">
                                     Eliminar
                                 </button>
-
-
-                                
                             </td>
                         </tr>
+
                         {% empty %}
                             <tr>
-                                <td colspan="3">No hay vehiculos registrados aún.</td>
+                                <td colspan="5">No hay vehiculos registrados aún.</td>
                             </tr>
                         {% endfor %}
                 </tbody>
@@ -244,46 +242,46 @@
     </div>
 
 
-{% block scripts %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const modalEliminar = document.getElementById('modalConfirmarEliminacion');
-            const formEliminar = document.getElementById('formEliminar');
+    {% block scripts %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const modalEliminar = document.getElementById('modalConfirmarEliminacion');
+                const formEliminar = document.getElementById('formEliminar');
 
-            modalEliminar.addEventListener('show.bs.modal', function (event) {
-                const button = event.relatedTarget;
-                const id = button.getAttribute('data-id');
+                modalEliminar.addEventListener('show.bs.modal', function (event) {
+                    const button = event.relatedTarget;
+                    const id = button.getAttribute('data-id');
 
-                formEliminar.action = `/Aplicacion/post_eliminar_vehiculo/${id}/`;
+                    formEliminar.action = `/Aplicacion/post_eliminar_vehiculo/${id}/`;
+                });
             });
-        });
-    </script>
+        </script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const modalEditar = document.getElementById('modalEditarVehiculo');
-            const formEditar = document.getElementById('formEditarVehiculo');
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const modalEditar = document.getElementById('modalEditarVehiculo');
+                const formEditar = document.getElementById('formEditarVehiculo');
 
-            modalEditar.addEventListener('show.bs.modal', function (event) {
-                const button = event.relatedTarget;
-                const id = button.getAttribute('data-id');
-                const marca = button.getAttribute('data-marca');
-                const modelo = button.getAttribute('data-modelo');
-                const pais = button.getAttribute('data-pais');
-                const fabricante = button.getAttribute('data-fabricante');
-                const tipo = button.getAttribute('data-tipo');
+                modalEditar.addEventListener('show.bs.modal', function (event) {
+                    const button = event.relatedTarget;
+                    const id = button.getAttribute('data-id');
+                    const marca = button.getAttribute('data-marca');
+                    const modelo = button.getAttribute('data-modelo');
+                    const pais = button.getAttribute('data-pais');
+                    const fabricante = button.getAttribute('data-fabricante');
+                    const tipo = button.getAttribute('data-tipo');
 
-                document.getElementById('edit_marca').value = marca;
-                document.getElementById('edit_modelo').value = modelo;
-                document.getElementById('edit_pais').value = pais;
-                document.querySelector('#edit_fabricante').value = parseInt(fabricante);
-                document.querySelector('#edit_tipo').value = parseInt(tipo);
+                    document.getElementById('edit_marca').value = marca;
+                    document.getElementById('edit_modelo').value = modelo;
+                    document.getElementById('edit_pais').value = pais;
+                    document.querySelector('#edit_fabricante').value = parseInt(fabricante);
+                    document.querySelector('#edit_tipo').value = parseInt(tipo);
 
-                formEditar.action = `/Aplicacion/post_editar_vehiculo/editar/${id}/`;
+                    formEditar.action = `/Aplicacion/post_editar_vehiculo/editar/${id}/`;
+                });
             });
-        });
-    </script>
-{% endblock scripts %}
+        </script>
+    {% endblock scripts %}
 
 
 

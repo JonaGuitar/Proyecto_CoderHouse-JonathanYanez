@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.db.models import Q
+from django.urls import reverse
 
 
 def acerca(request):
@@ -36,63 +37,9 @@ def post_buscar(request):
 
 
  
- 
- 
- 
- 
- 
+
+
 #@login_required
-# def post_agregar(request):
-#     if request.method == 'POST':
-#         form = PostForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('Aplicacion:post_agregar')
-
-#     else:
-#         form = PostForm()
-
-#     vehiculos = Post.objects.all()
-#     fabricantes = Fabricante.objects.all()       
-#     tipos = TipoVehiculo.objects.all()           
-
-#     return render(request, 'Aplicacion/agregar_vehiculos.html', {
-#         'form': form,
-#         'vehiculos': vehiculos,
-#         'fabricantes': fabricantes,
-#         'tipos': tipos,
-#     })
-    
-    
-    
-    
-# def post_agregar(request):
-#     fue_creado = False
-
-#     if request.method == 'POST':
-#         form = PostForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('/Aplicacion/post_agregar?creado=1')  # redirige con un parámetro
-#     else:
-#         form = PostForm()
-
-#     if request.GET.get('creado') == '1':
-#         fue_creado = True
-
-#     vehiculos = Post.objects.all()
-#     fabricantes = Fabricante.objects.all()       
-#     tipos = TipoVehiculo.objects.all()           
-
-#     return render(request, 'Aplicacion/agregar_vehiculos.html', {
-#         'form': form,
-#         'vehiculos': vehiculos,
-#         'fabricantes': fabricantes,
-#         'tipos': tipos,
-#         'fue_creado': fue_creado,  # pasas esto al template
-#     })
-
-
 def post_agregar(request):
     fue_creado = False
     eliminado = request.GET.get('eliminado') == '1'  # 👈 Agrega esta línea
@@ -140,14 +87,6 @@ def post_editar_vehiculo(request, vehiculo_id):
 
 
 #@login_required
-# def post_eliminar_vehiculo(request, vehiculo_id):
-#     if request.method == 'POST':
-#         vehiculo = get_object_or_404(Post, id=vehiculo_id)
-#         vehiculo.delete()
-    
-#     return redirect('Aplicacion:post_agregar')
-
-
 def post_eliminar_vehiculo(request, vehiculo_id):
     if request.method == 'POST':
         vehiculo = get_object_or_404(Post, id=vehiculo_id)
@@ -162,23 +101,45 @@ def post_eliminar_vehiculo(request, vehiculo_id):
     
     
     
+# def post_agregar_fabricante(request):
+#     form = FabricanteForm()
+#     fue_creado = False  # Flag para controlar el modal
+
+#     if request.method == 'POST':
+#         form = FabricanteForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             fue_creado = True  # Activamos el modal de éxito
+#             form = FabricanteForm()  # Limpiar el formulario
+
+#     fabricantes = Fabricante.objects.all().order_by('nombre')
+    
+#     return render(request, 'Aplicacion/agregar_fabricante.html', {
+#         'form': form,
+#         'fabricantes': fabricantes,
+#         'fue_creado': fue_creado  # lo mandamos a la plantilla
+#     })
+    
+    
 def post_agregar_fabricante(request):
     form = FabricanteForm()
-    fue_creado = False  # Flag para controlar el modal
+    fue_creado = False
+    eliminado = request.GET.get('eliminado') == '1'  # Flag para modal eliminación
 
     if request.method == 'POST':
         form = FabricanteForm(request.POST)
         if form.is_valid():
             form.save()
-            fue_creado = True  # Activamos el modal de éxito
-            form = FabricanteForm()  # Limpiar el formulario
+            fue_creado = True
+            form = FabricanteForm()
 
     fabricantes = Fabricante.objects.all().order_by('nombre')
-    
+
     return render(request, 'Aplicacion/agregar_fabricante.html', {
         'form': form,
         'fabricantes': fabricantes,
-        'fue_creado': fue_creado  # lo mandamos a la plantilla
+        'fue_creado': fue_creado,
+        'eliminado': eliminado,
     })
 
     
@@ -195,14 +156,24 @@ def post_editar_fabricante(request, fabricante_id):
     else:
         form = FabricanteForm(instance=fabricante)
 
-    
+  
     
 #@login_required
+# def post_eliminar_fabricante(request, fabricante_id):
+#     if request.method == 'POST':
+#         fabricante = get_object_or_404(Fabricante, id=fabricante_id)
+#         fabricante.delete()
+#     return redirect('Aplicacion:post_agregar_fabricante')
+
+
 def post_eliminar_fabricante(request, fabricante_id):
     if request.method == 'POST':
         fabricante = get_object_or_404(Fabricante, id=fabricante_id)
         fabricante.delete()
-    return redirect('Aplicacion:post_agregar_fabricante')  
+        # Redirigir a la página con un parámetro GET para mostrar el modal de éxito
+        url = reverse('Aplicacion:post_agregar_fabricante') + '?eliminado=1'
+        return redirect(url)
+    return redirect('Aplicacion:post_agregar_fabricante')
     
 
 
@@ -274,6 +245,7 @@ def login_modal(request):
             return render(request, 'login_error.html', {'error': 'Credenciales inválidas'})
     else:
         return HttpResponse(status=405)  # Método no permitido si no es POST
+    
     
     
     
