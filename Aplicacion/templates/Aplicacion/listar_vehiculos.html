@@ -6,33 +6,34 @@
 
 {% block content %}
 
-  {% for post in Posts %}
-
-    <div class="card mb-4">
-        <div class="card-body">
-            <div class="row align-items-center">              
-                <!-- Ícono o imagen a la izquierda -->
-                <div class="col-md-2 text-center">
-                  <i class="bi bi-car-front-fill display-4 text-warning"></i>
-                </div>
-                
-                <!-- Contenido a la derecha -->
-                <div class="col-md-10">
-                  <h5 class="card-title mb-1">Marca: {{ post.marca }}</h5>
-                  <p class="card-text mb-1">Modelo: {{ post.modelo }}</p>
-                  <p class="card-text"><small class="text-muted">País: {{ post.pais }}</small></p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="card-footer text-muted text-end">
-            Publicado el {{ post.fecha_publicacion }}
-        </div>
+  {% if Posts %}
+    {% for post in Posts %}
+      <div class="card mb-4">
+          <div class="card-body">
+              <div class="row align-items-center">              
+                  <!-- Ícono o imagen a la izquierda -->
+                  <div class="col-md-2 text-center">
+                    <i class="bi bi-car-front-fill display-4 text-warning"></i>
+                  </div>
+                  
+                  <!-- Contenido a la derecha -->
+                  <div class="col-md-10">
+                    <h5 class="card-title mb-1">Marca: {{ post.marca }}</h5>
+                    <p class="card-text mb-1">Modelo: {{ post.modelo }}</p>
+                    <p class="card-text"><small class="text-muted">País: {{ post.pais }}</small></p>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="card-footer text-muted text-end">
+              Publicado el {{ post.fecha_publicacion }}
+          </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="alert alert-warning" role="alert">
+        No existen publicaciones.
     </div>
-
-  {% endfor %}
-
+  {% endif %}
 
 {% endblock content %}
-
-
