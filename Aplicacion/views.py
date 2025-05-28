@@ -11,25 +11,12 @@ def acerca(request):
     return render(request, 'Aplicacion/acercade.html')
 
 
+
 def post_listar(request):
     post_listar = Post.objects.all()
+    
     return render(request, "Aplicacion/listar_vehiculos.html", context={"Posts": post_listar})
 
-
-
-# def post_buscar(request):
-#     busqueda = request.GET.get("busqueda", None)
-
-#     if busqueda:
-#         post_buscar = Post.objects.filter(
-#             Q(marca__icontains=busqueda) |
-#             Q(modelo__icontains=busqueda) |
-#             Q(pais__icontains=busqueda)
-#         )
-#     else:
-#         post_buscar = Post.objects.all()
-        
-#     return render(request, "Aplicacion/buscar_vehiculos.html", context={"Posts": post_buscar})
 
 
 def post_buscar(request):
@@ -49,16 +36,49 @@ def post_buscar(request):
 
 
  
+ 
+ 
+ 
+ 
+ 
 #@login_required
+# def post_agregar(request):
+#     if request.method == 'POST':
+#         form = PostForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('Aplicacion:post_agregar')
+
+#     else:
+#         form = PostForm()
+
+#     vehiculos = Post.objects.all()
+#     fabricantes = Fabricante.objects.all()       
+#     tipos = TipoVehiculo.objects.all()           
+
+#     return render(request, 'Aplicacion/agregar_vehiculos.html', {
+#         'form': form,
+#         'vehiculos': vehiculos,
+#         'fabricantes': fabricantes,
+#         'tipos': tipos,
+#     })
+    
+    
+    
+    
 def post_agregar(request):
+    fue_creado = False
+
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('Aplicacion:post_agregar')
-
+            return redirect('/Aplicacion/post_agregar?creado=1')  # redirige con un parámetro
     else:
         form = PostForm()
+
+    if request.GET.get('creado') == '1':
+        fue_creado = True
 
     vehiculos = Post.objects.all()
     fabricantes = Fabricante.objects.all()       
@@ -69,7 +89,10 @@ def post_agregar(request):
         'vehiculos': vehiculos,
         'fabricantes': fabricantes,
         'tipos': tipos,
+        'fue_creado': fue_creado,  # pasas esto al template
     })
+    
+
 
 
 #@login_required
@@ -85,31 +108,20 @@ def post_editar_vehiculo(request, vehiculo_id):
         form = PostForm(instance=vehiculo)
 
 
+
 #@login_required
 def post_eliminar_vehiculo(request, vehiculo_id):
     if request.method == 'POST':
         vehiculo = get_object_or_404(Post, id=vehiculo_id)
         vehiculo.delete()
+    
     return redirect('Aplicacion:post_agregar')
 
-
-
-
-#@login_required
-# def post_agregar_fabricante(request):
-#     form = FabricanteForm()
-
-#     if request.method == 'POST':
-#         form = FabricanteForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('Aplicacion:post_agregar_fabricante') 
-
-#     fabricantes = Fabricante.objects.all().order_by('nombre')
-#     return render(request, 'Aplicacion/agregar_fabricante.html', {
-#         'form': form,
-#         'fabricantes': fabricantes
-#     })
+   
+    
+    
+    
+    
     
     
 def post_agregar_fabricante(request):
@@ -124,13 +136,13 @@ def post_agregar_fabricante(request):
             form = FabricanteForm()  # Limpiar el formulario
 
     fabricantes = Fabricante.objects.all().order_by('nombre')
+    
     return render(request, 'Aplicacion/agregar_fabricante.html', {
         'form': form,
         'fabricantes': fabricantes,
         'fue_creado': fue_creado  # lo mandamos a la plantilla
     })
 
-    
     
       
 #@login_required    
@@ -154,6 +166,9 @@ def post_eliminar_fabricante(request, fabricante_id):
         fabricante.delete()
     return redirect('Aplicacion:post_agregar_fabricante')  
     
+
+
+
 
 
 
@@ -204,6 +219,9 @@ def post_eliminar_tipo(request, tipo_id):
 
 
 
+
+
+
 def login_modal(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -221,9 +239,9 @@ def login_modal(request):
     
     
     
-    
 def logout_view(request):
     logout(request)
+    
     return redirect('Main:index')  # Asegúrate que este nombre está en tu urls.py
     
     
