@@ -96,20 +96,40 @@ def post_eliminar_vehiculo(request, vehiculo_id):
 
 
 #@login_required
+# def post_agregar_fabricante(request):
+#     form = FabricanteForm()
+
+#     if request.method == 'POST':
+#         form = FabricanteForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('Aplicacion:post_agregar_fabricante') 
+
+#     fabricantes = Fabricante.objects.all().order_by('nombre')
+#     return render(request, 'Aplicacion/agregar_fabricante.html', {
+#         'form': form,
+#         'fabricantes': fabricantes
+#     })
+    
+    
 def post_agregar_fabricante(request):
     form = FabricanteForm()
+    fue_creado = False  # Flag para controlar el modal
 
     if request.method == 'POST':
         form = FabricanteForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('Aplicacion:post_agregar_fabricante') 
+            fue_creado = True  # Activamos el modal de éxito
+            form = FabricanteForm()  # Limpiar el formulario
 
     fabricantes = Fabricante.objects.all().order_by('nombre')
     return render(request, 'Aplicacion/agregar_fabricante.html', {
         'form': form,
-        'fabricantes': fabricantes
+        'fabricantes': fabricantes,
+        'fue_creado': fue_creado  # lo mandamos a la plantilla
     })
+
     
     
       
