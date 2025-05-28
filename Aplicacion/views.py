@@ -158,22 +158,24 @@ def post_eliminar_fabricante(request, fabricante_id):
 
 
 
-#@login_required
+#@login_required  
 def post_agregar_tipo(request):
+    form = TipoVehiculoForm()
+    fue_creado = False  # Flag para controlar el modal
+
     if request.method == 'POST':
         form = TipoVehiculoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('Aplicacion:post_agregar_tipo')  
-    else:
-        form = TipoVehiculoForm()
+            fue_creado = True  # Activamos el modal de éxito
+            form = TipoVehiculoForm()  # Limpiar el formulario
 
-    tipos = TipoVehiculo.objects.all().order_by('tipo')  
-
+    tipos = TipoVehiculo.objects.all().order_by('tipo')
     return render(request, 'Aplicacion/agregar_tipo.html', {
         'form': form,
         'tipos': tipos,
-    })
+        'fue_creado': fue_creado  # lo mandamos a la plantilla
+    })    
 
     
 
