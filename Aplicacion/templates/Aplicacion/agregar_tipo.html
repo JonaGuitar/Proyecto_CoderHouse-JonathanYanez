@@ -59,11 +59,14 @@
                                     Editar
                                 </button>
                                 
-                                <!-- Botón Eliminar (form POST) -->
-                                <form method="post" action="{% url 'Aplicacion:post_eliminar_tipo' tipo.id %}" style="display:inline;">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                </form>
+                                <!-- Botón Eliminar con SweetAlert -->
+                                <button type="button"
+                                        class="btn btn-danger btn-sm btn-eliminar"
+                                        data-id="{{ tipo.id }}"
+                                        data-url="{% url 'Aplicacion:post_eliminar_tipo' tipo.id %}">
+                                    Eliminar
+                                </button>                                
+
                             </td>                            
                         </tr>
                         {% empty %}
@@ -109,7 +112,7 @@
     </div>
 
 
-<!-- Modal Éxito al agregar -->
+    <!-- Modal Éxito al agregar -->
     <div class="modal fade" id="modalCreado" tabindex="-1" aria-labelledby="modalCreadoLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -137,9 +140,103 @@
     {% endif %}    
 
 
+
+    <!-- Modal Confirmar Eliminación -->
+    <div class="modal fade" id="modalConfirmarEliminacion" tabindex="-1" aria-labelledby="modalConfirmarEliminacionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="modalConfirmarEliminacionLabel">¿Está seguro?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Está seguro que desea eliminar este registro? Esta acción no se puede deshacer.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmarEliminar">Sí, eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Eliminado Correctamente -->
+    <div class="modal fade" id="modalEliminado" tabindex="-1" aria-labelledby="modalEliminadoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="modalEliminadoLabel">Eliminado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    El registro fue eliminado correctamente.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if fue_eliminado %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Eliminado!',
+                    text: 'El registro fue eliminado correctamente.',
+                    confirmButtonText: 'Cerrar'
+                });
+            });
+        </script>
+    {% endif %}
+
+
     {% block scripts %}
 
         <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const buttonsEliminar = document.querySelectorAll('.btn-eliminar');
+
+                buttonsEliminar.forEach(button => {
+                    button.addEventListener('click', function () {
+                        const url = this.getAttribute('data-url');
+                        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+                        Swal.fire({
+                            title: '¿Está seguro?',
+                            text: "Esta acción no se puede deshacer.",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Sí, eliminar',
+                            cancelButtonText: 'Cancelar'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Crear formulario oculto y enviarlo
+                                const form = document.createElement('form');
+                                form.method = 'POST';
+                                form.action = url;
+
+                                const csrfInput = document.createElement('input');
+                                csrfInput.type = 'hidden';
+                                csrfInput.name = 'csrfmiddlewaretoken';
+                                csrfInput.value = csrfToken;
+                                form.appendChild(csrfInput);
+
+                                document.body.appendChild(form);
+                                form.submit();
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
+
+
+        <script>
+            
             document.addEventListener('DOMContentLoaded', function () {
                 const modalEditar = document.getElementById('modalEditarTipo')
                 const formEditar = document.getElementById('formEditarTipo')

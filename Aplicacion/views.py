@@ -3,7 +3,7 @@ from .models import Post, Fabricante, TipoVehiculo
 from .forms import PostForm, FabricanteForm, TipoVehiculoForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
 from django.urls import reverse
 
@@ -97,29 +97,8 @@ def post_eliminar_vehiculo(request, vehiculo_id):
    
     
     
-    
-    
-    
-    
-# def post_agregar_fabricante(request):
-#     form = FabricanteForm()
-#     fue_creado = False  # Flag para controlar el modal
 
-#     if request.method == 'POST':
-#         form = FabricanteForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             fue_creado = True  # Activamos el modal de éxito
-#             form = FabricanteForm()  # Limpiar el formulario
 
-#     fabricantes = Fabricante.objects.all().order_by('nombre')
-    
-#     return render(request, 'Aplicacion/agregar_fabricante.html', {
-#         'form': form,
-#         'fabricantes': fabricantes,
-#         'fue_creado': fue_creado  # lo mandamos a la plantilla
-#     })
-    
     
 def post_agregar_fabricante(request):
     form = FabricanteForm()
@@ -157,13 +136,6 @@ def post_editar_fabricante(request, fabricante_id):
         form = FabricanteForm(instance=fabricante)
 
   
-    
-#@login_required
-# def post_eliminar_fabricante(request, fabricante_id):
-#     if request.method == 'POST':
-#         fabricante = get_object_or_404(Fabricante, id=fabricante_id)
-#         fabricante.delete()
-#     return redirect('Aplicacion:post_agregar_fabricante')
 
 
 def post_eliminar_fabricante(request, fabricante_id):
@@ -182,27 +154,28 @@ def post_eliminar_fabricante(request, fabricante_id):
 
 
 
-#@login_required  
+#@login_required     
 def post_agregar_tipo(request):
     form = TipoVehiculoForm()
-    fue_creado = False  # Flag para controlar el modal
+    fue_creado = False
+    fue_eliminado = request.GET.get('eliminado') == '1'
 
     if request.method == 'POST':
         form = TipoVehiculoForm(request.POST)
         if form.is_valid():
             form.save()
-            fue_creado = True  # Activamos el modal de éxito
-            form = TipoVehiculoForm()  # Limpiar el formulario
+            fue_creado = True
+            form = TipoVehiculoForm()
 
     tipos = TipoVehiculo.objects.all().order_by('tipo')
     return render(request, 'Aplicacion/agregar_tipo.html', {
         'form': form,
         'tipos': tipos,
-        'fue_creado': fue_creado  # lo mandamos a la plantilla
-    })    
-
+        'fue_creado': fue_creado,
+        'fue_eliminado': fue_eliminado,
+    })
     
-
+    
 #@login_required    
 def post_editar_tipo(request, tipo_id):
     tipo = get_object_or_404(TipoVehiculo, id=tipo_id)
@@ -222,6 +195,7 @@ def post_eliminar_tipo(request, tipo_id):
     if request.method == 'POST':
         tipo = get_object_or_404(TipoVehiculo, id=tipo_id)
         tipo.delete()
+        return HttpResponseRedirect(reverse('Aplicacion:post_agregar_tipo') + '?eliminado=1')
     return redirect('Aplicacion:post_agregar_tipo')
 
 
