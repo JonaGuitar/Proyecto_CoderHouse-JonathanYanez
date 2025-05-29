@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
 from django.urls import reverse
+from Main.views import login_required_404
 
 
 def acerca(request):
@@ -158,7 +159,8 @@ def post_eliminar_fabricante(request, fabricante_id):
 
 
 
-#@login_required     
+#@login_required
+@login_required_404
 def post_agregar_tipo(request):
     form = TipoVehiculoForm()
     fue_creado = False
