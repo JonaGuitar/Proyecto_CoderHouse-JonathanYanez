@@ -10,4 +10,45 @@
         </div>
     </div>
 
+
+    <div class="container">
+        <div class="row text-center">
+
+            <!-- Card 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Sistemas Hidraulicos</h5>
+                        <p class="card-text">Los Sistemas Hidráulicos en los automóviles son conjuntos de componentes que utilizan fluidos bajo presión para transmitir fuerza y movimiento de manera eficiente. Estos sistemas se emplean comúnmente en...</p>
+                        <a href="{% url 'Main:error_404_demo' %}" class="btn btn-primary">Ver Mas...</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Tipos de Vehículos</h5>
+                        <p class="card-text">Gestiona las categorías como sedán, SUV, camioneta, etc.</p>
+                        <a href="{% url 'Aplicacion:post_agregar_tipo' %}" class="btn btn-primary">Ir a Tipos</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Vehículos</h5>
+                        <p class="card-text">Agrega, edita o elimina vehículos registrados en tu blog.</p>
+                        <a href="{% url 'Aplicacion:post_agregar' %}" class="btn btn-primary">Ir a Vehículos</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
 {% endblock content %}

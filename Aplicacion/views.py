@@ -12,6 +12,10 @@ def acerca(request):
     return render(request, 'Aplicacion/acercade.html')
 
 
+#def error_404_demo(request):
+#    return HttpResponseNotFound(render(request, '404.html'))
+
+
 
 def post_listar(request):
     post_listar = Post.objects.all()

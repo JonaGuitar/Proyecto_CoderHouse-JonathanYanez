@@ -6,8 +6,12 @@ from django.contrib.auth.views import LogoutView
 app_name = "Aplicacion"
 
 urlpatterns = [
-    path('post_listar', views.post_listar, name='post_listar'),
+    
     path('acerca', views.acerca, name='acerca'),
+    #path('error-404/', views.error_404_demo, name='error_404_demo'),
+    
+    path('post_listar', views.post_listar, name='post_listar'),
+    
     path('post_buscar', views.post_buscar, name='post_buscar'),
     
     path('post_agregar', views.post_agregar, name='post_agregar'),
