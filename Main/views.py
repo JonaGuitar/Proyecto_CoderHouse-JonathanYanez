@@ -43,6 +43,7 @@ def editar_perfil(request):
     return render(request, 'Main/editar_perfil.html', {"form": form})
     
     
+
  
 def registrar_usuario(request):
     if request.method == 'POST':
