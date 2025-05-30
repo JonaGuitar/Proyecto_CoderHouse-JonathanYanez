@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
 from functools import wraps
 from django.http import HttpResponseNotFound
-from .forms import EditUserForm
+from .forms import RegistroUsuarioForm, EditUserForm
 from django.contrib.auth.decorators import login_required
-
-
+from django.contrib import messages
 
 
 # Create your views here.
@@ -43,4 +42,17 @@ def editar_perfil(request):
 
     return render(request, 'Main/editar_perfil.html', {"form": form})
     
+    
+ 
+def registrar_usuario(request):
+    if request.method == 'POST':
+        form = RegistroUsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Usuario registrado con éxito.')
+            return redirect("Main:registrar_usuario")  # Puedes redirigir a donde quieras
+    else:
+        form = RegistroUsuarioForm()
+        
+    return render(request, 'Main/registrar_usuario.html', {'form': form})
     
