@@ -1,0 +1,38 @@
+{% extends "Main/base.html" %}
+
+{% block content_title %}
+    Perfil
+{% endblock content_title %}
+
+
+{% block content %}
+        
+    <div class="card">
+        <div class="card-body">
+
+            <div class="mb-3">
+                <label for="id_username" class="form-label">Nombre Usuario</label>
+                {{ form.username }}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_first_name" class="form-label">Nombre</label>
+                {{ form.first_name }}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_last_name" class="form-label">Apellido</label>
+                {{ form.last_name }}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_email" class="form-label">Email</label>
+                {{ form.email }}
+            </div>
+
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href="{% url 'Main:editar_perfil' %}" class="btn btn-secondary">Editar Perfil</a>
+        </div>
+    </div>
+
+{% endblock content %}

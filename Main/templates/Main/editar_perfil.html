@@ -1,0 +1,100 @@
+{% extends "Main/base.html" %}
+
+{% block content_title %}
+    Editar Perfil
+{% endblock content_title %}
+
+
+{% block content %}
+        
+    <div class="card">
+        <div class="card-body">
+
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="id_username" class="form-label">Nombre de Usuario</label>
+                    {{ form.username }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_first_name" class="form-label">Nombre</label>
+                    {{ form.first_name }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_last_name" class="form-label">Apellido</label>
+                    {{ form.last_name }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_email" class="form-label">Email</label>
+                    {{ form.email }}
+                </div>
+
+                </br>
+                </br>
+
+                <button type="submit" class="btn btn-success">Guardar</button>
+            </form>
+
+
+            </br>
+            </br>
+
+            <!-- Aquí va la tabla, fuera del <form> -->
+            <hr>
+
+            {% comment %} <h4 class="mt-4">Fabricantes registrados</h4> {% endcomment %}
+
+            {% comment %} <table class="table table-striped mt-2">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>País de Origen</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for fabricante in fabricantes %}
+                        <tr>
+                            <td>{{ fabricante.nombre }}</td>
+                            <td>{{ fabricante.pais_origen }}</td>
+                            <td>
+                                <!-- Botón Editar (link) -->
+                                <button type="button" class="btn btn-warning btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalEditarFabricante"
+                                        data-id="{{ fabricante.id }}"
+                                        data-nombre="{{ fabricante.nombre }}"
+                                        data-pais="{{ fabricante.pais_origen }}">
+                                    Editar
+                                </button>
+
+
+                                <!-- Botón Eliminar que abre el modal de confirmación -->
+                                <button type="button" class="btn btn-danger btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#modalConfirmarEliminar" 
+                                        data-id="{{ fabricante.id }}" 
+                                        data-nombre="{{ fabricante.nombre }}">
+                                    Eliminar
+                                </button>                                
+                            </td>
+                        </tr>
+
+                        {% empty %}
+                            <tr>
+                                <td colspan="3">No hay fabricantes registrados aún.</td>
+                            </tr>
+                        {% endfor %}
+
+                </tbody>
+            </table> {% endcomment %}
+
+
+        </div>
+    </div>
+
+{% endblock content %}

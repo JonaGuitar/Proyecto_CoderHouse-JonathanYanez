@@ -5,5 +5,6 @@ app_name = "Main"
 
 urlpatterns = [
     path('', views.index, name='index'),
-    #path('error-404/', views.error_404_demo, name='error_404_demo')
+    path('perfil', views.perfil, name='perfil'),
+    path('editar_perfil', views.editar_perfil, name='editar_perfil')
 ]

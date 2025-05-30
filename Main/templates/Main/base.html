@@ -46,7 +46,7 @@
                                 <li><a class="dropdown-item" href="{% url 'Aplicacion:post_agregar' %}">Vehículos</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="#">Usuario</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url "Main:editar_perfil" %}">Usuario</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url "Aplicacion:acerca" %}">Acerca de</a></li>                        
                         <li class="nav-item"><a class="nav-link" href="{% url 'Aplicacion:logout' %}">Cerrar Sesion</a></li>
                     {% else %}

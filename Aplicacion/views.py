@@ -13,10 +13,6 @@ def acerca(request):
     return render(request, 'Aplicacion/acercade.html')
 
 
-#def error_404_demo(request):
-#    return HttpResponseNotFound(render(request, '404.html'))
-
-
 
 def post_listar(request):
     post_listar = Post.objects.all()
@@ -44,7 +40,7 @@ def post_buscar(request):
  
 
 
-#@login_required
+@login_required_404
 def post_agregar(request):
     fue_creado = False
     eliminado = request.GET.get('eliminado') == '1'  # 👈 Agrega esta línea
@@ -77,7 +73,7 @@ def post_agregar(request):
 
 
 
-#@login_required
+@login_required_404
 def post_editar_vehiculo(request, vehiculo_id):
     vehiculo = get_object_or_404(Post, id=vehiculo_id)
 
@@ -91,7 +87,7 @@ def post_editar_vehiculo(request, vehiculo_id):
 
 
 
-#@login_required
+@login_required_404
 def post_eliminar_vehiculo(request, vehiculo_id):
     if request.method == 'POST':
         vehiculo = get_object_or_404(Post, id=vehiculo_id)
@@ -104,7 +100,7 @@ def post_eliminar_vehiculo(request, vehiculo_id):
     
 
 
-    
+@login_required_404    
 def post_agregar_fabricante(request):
     form = FabricanteForm()
     fue_creado = False
@@ -128,7 +124,7 @@ def post_agregar_fabricante(request):
 
     
       
-#@login_required    
+@login_required_404   
 def post_editar_fabricante(request, fabricante_id):
     fabricante = get_object_or_404(Fabricante, id=fabricante_id)
 
@@ -142,7 +138,7 @@ def post_editar_fabricante(request, fabricante_id):
 
   
 
-
+@login_required_404
 def post_eliminar_fabricante(request, fabricante_id):
     if request.method == 'POST':
         fabricante = get_object_or_404(Fabricante, id=fabricante_id)
@@ -157,9 +153,6 @@ def post_eliminar_fabricante(request, fabricante_id):
 
 
 
-
-
-#@login_required
 @login_required_404
 def post_agregar_tipo(request):
     form = TipoVehiculoForm()
@@ -182,7 +175,7 @@ def post_agregar_tipo(request):
     })
     
     
-#@login_required    
+@login_required_404   
 def post_editar_tipo(request, tipo_id):
     tipo = get_object_or_404(TipoVehiculo, id=tipo_id)
 
@@ -196,7 +189,7 @@ def post_editar_tipo(request, tipo_id):
     
 
 
-#@login_required    
+@login_required_404   
 def post_eliminar_tipo(request, tipo_id):
     if request.method == 'POST':
         tipo = get_object_or_404(TipoVehiculo, id=tipo_id)
