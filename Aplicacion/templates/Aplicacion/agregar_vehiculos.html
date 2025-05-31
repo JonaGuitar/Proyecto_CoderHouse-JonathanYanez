@@ -36,25 +36,20 @@
                     {{ form.tipo_vehiculo }}
                 </div>
 
-
-                </br>
                 </br>
 
                 <button type="submit" class="btn btn-success">Guardar</button>
                 <a href="{% url 'Aplicacion:post_listar' %}" class="btn btn-secondary">Cancelar</a>
             </form>
 
-
-            </br>
             </br>
 
-            <!-- Aquí va la tabla, fuera del <form> -->
             <hr>
 
             <h4 class="mt-4">Vehiculos registrados</h4>
 
             <table class="table table-striped mt-2">
-                <thead>
+                <thead class="table-dark">
                     <tr>
                         <th>Marca</th>
                         <th>Modelo</th>

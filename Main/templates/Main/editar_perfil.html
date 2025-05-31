@@ -12,14 +12,83 @@
 
             <form method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {% comment %} {{ form.as_p }} {% endcomment %}
+
+                 <div class="row">
+                    <div class="mb-3">
+                        <label for="id_username" class="form-label">Nombre Usuario</label>
+                        {{ form.username }}
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="id_first_name" class="form-label">Nombre</label>
+                            {{ form.first_name }}
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="id_last_name" class="form-label">Apellido</label>
+                            {{ form.last_name }}
+                        </div>
+                    </div>                        
+                </div>
+
+
+                 <div class="row">
+                    <div class="mb-3">
+                        <label for="id_email" class="form-label">Email</label>
+                        {{ form.email }}
+                    </div>
+                </div>                
+
+                 <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="id_is_active" class="form-label">Activo</label>
+                            {{ form.is_active }}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="id_is_staff" class="form-label">Puede entrar al panel admin</label>
+                            {{ form.is_staff }}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="id_is_superuser" class="form-label">Tiene todos los permisos</label>
+                            {{ form.is_superuser }}
+                        </div>
+                    </div>                                          
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="id_last_login" class="form-label">Último inicio de sesión</label>
+                            {{ form.last_login }}
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="id_date_joined" class="form-label">Fecha de creación de la cuenta</label>
+                            {{ form.date_joined }}
+                        </div> 
+                    </div>                        
+                </div>
+
+                </br>
 
                 <button type="submit" class="btn btn-success">Guardar</button>
+                <a href="{% url 'Main:password_change' %}" class="btn btn-warning">Cambiar Contraseña</a>
+                <a href="{% url 'Main:perfil' %}" class="btn btn-outline-dark">Cancelar</a>
             </form>
-
-
-            </br>
-            </br>
 
         </div>
     </div>

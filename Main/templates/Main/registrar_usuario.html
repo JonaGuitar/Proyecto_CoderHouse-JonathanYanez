@@ -7,25 +7,23 @@
 
 {% block content %}
 
-
-
-    <div class="card">
+<div class="card">
         <div class="card-body">
 
             <div class="mb-3">
                 <form method="post">
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <button type="submit">Registrarse</button>
                 </form>
+                
+                </br>
 
-                <button type="submit" class="btn btn-success">Guardar</button>
-                <a href="{% url 'Main:editar_perfil' %}" class="btn btn-secondary">Editar Perfil</a>
+                <button type="submit" class="btn btn-success">Registrarse</button>
+                <a href="{% url 'Main:index' %}" class="btn btn-outline-dark">Cancelar</a>
             </div>
 
         </div>
     </div>  
 
-  
-  
+    
 {% endblock %}

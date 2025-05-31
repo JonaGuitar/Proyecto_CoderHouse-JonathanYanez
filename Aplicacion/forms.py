@@ -19,7 +19,7 @@ class TipoVehiculoForm(forms.ModelForm):
         fields = ['tipo', 'descripcion']
         widgets = {
             'tipo': forms.TextInput(attrs={'class': 'form-control'}),
-            'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control', 'rows': 3 })
         }
 
       
