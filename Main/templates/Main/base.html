@@ -132,21 +132,6 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-        {% comment %} {% if messages %}
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    {% for message in messages %}
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error de autenticación',
-                            text: '{{ message }}',
-                            confirmButtonColor: '#6c757d'
-                        });
-                    {% endfor %}
-                });
-            </script>
-        {% endif %} {% endcomment %}
-
         {% if messages %}
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
