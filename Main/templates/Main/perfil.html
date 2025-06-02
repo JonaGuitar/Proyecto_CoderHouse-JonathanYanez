@@ -12,7 +12,7 @@
 
                  <div class="row">
                     <div class="mb-3">
-                        <label for="id_username" class="form-label">Nombre Usuario</label>
+                        <label for="id_username" class="form-label fw-bold">Nombre Usuario</label>
                         {{ form.username }}
                     </div>
                 </div>
@@ -21,14 +21,14 @@
                 <div class="row">
                     <div class="col">
                         <div class="mb-3">
-                            <label for="id_first_name" class="form-label">Nombre</label>
+                            <label for="id_first_name" class="form-label fw-bold">Nombre</label>
                             {{ form.first_name }}
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="mb-3">
-                            <label for="id_last_name" class="form-label">Apellido</label>
+                            <label for="id_last_name" class="form-label fw-bold">Apellido</label>
                             {{ form.last_name }}
                         </div>
                     </div>                        
@@ -37,43 +37,47 @@
 
                  <div class="row">
                     <div class="mb-3">
-                        <label for="id_email" class="form-label">Email</label>
+                        <label for="id_email" class="form-label fw-bold">Email</label>
                         {{ form.email }}
                     </div>
                 </div>                
 
-                 <div class="row">
+                </br>
+
+                <div class="row">
                     <div class="col">
                         <div class="mb-3">
-                            <label for="id_is_active" class="form-label">Activo</label>
+                            <label for="id_is_active" class="form-check-label fw-bold">Activo</label>
                             {{ form.is_active }}
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
-                            <label for="id_is_staff" class="form-label">Puede entrar al panel admin</label>
+                            <label for="id_is_staff" class="form-label fw-bold">Puede entrar al panel admin</label>
                             {{ form.is_staff }}
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
-                            <label for="id_is_superuser" class="form-label">Tiene todos los permisos</label>
+                            <label for="id_is_superuser" class="form-label fw-bold">Tiene todos los permisos</label>
                             {{ form.is_superuser }}
                         </div>
                     </div>                                          
                 </div>
 
+                </br>
+
                 <div class="row">
                     <div class="col">
                         <div class="mb-3">
-                            <label for="id_last_login" class="form-label">Último inicio de sesión</label>
+                            <label for="id_last_login" class="form-label fw-bold">Último inicio de sesión</label>
                             {{ form.last_login }}
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="mb-3">
-                            <label for="id_date_joined" class="form-label">Fecha de creación de la cuenta</label>
+                            <label for="id_date_joined" class="form-label fw-bold">Fecha de creación de la cuenta</label>
                             {{ form.date_joined }}
                         </div> 
                     </div>                        
@@ -83,55 +87,45 @@
                 <hr>
 
                 <h5>Información adicional</h5>
-
+                
+                </br>
+                
                 <div class="row">
                     <div class="mb-3">
                         <label for="id_avatar" class="form-label">Avatar</label><br>
-                        {% if perfil_usuario.instance.avatar %}
-                            <img src="{{ perfil_usuario.instance.avatar.url }}" alt="Avatar" width="100"><br><br>
+                        {% if perfil_usuario.avatar %}
+                            <img src="{{ perfil_usuario.avatar.url }}" alt="Avatar" width="150" height="150">
                         {% endif %}
-                        {{ perfil_usuario.avatar }}
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="mb-3">
-                        <label for="id_biografia" class="form-label">Biografía</label>
+                        <label for="id_biografia" class="form-label fw-bold">Biografía</label>
                         {{ perfil_usuario.biografia }}
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="mb-3">
-                        <label for="id_link" class="form-label">Link personal</label>
+                        <label for="id_link" class="form-label fw-bold">Link personal</label>
                         {{ perfil_usuario.link }}
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="mb-3">
-                        <label for="id_fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
+                        <label for="id_fecha_nacimiento" class="form-label fw-bold">Fecha de nacimiento</label>
                         {{ perfil_usuario.fecha_nacimiento }}
                     </div>
                 </div>
-
-
-
-                {% if perfil_usuario.avatar %}
-                    <img src="{{ perfil_usuario.avatar.url }}" alt="Avatar" width="150" height="150">
-                {% endif %}
-
-                <p><strong>Biografía:</strong> {{ perfil_usuario.biografia }}</p>
-                <p><strong>Link:</strong> <a href="{{ perfil_usuario.link }}" target="_blank">{{ perfil_usuario.link }}</a></p>
-                <p><strong>Fecha de nacimiento:</strong> {{ perfil_usuario.fecha_nacimiento }}</p>
-
-
 
             </br>
 
             <a href="{% url 'Main:editar_perfil' %}" class="btn btn-success">Editar Perfil</a>
             <a href="{% url 'Main:password_change' %}" class="btn btn-warning">Cambiar Contraseña</a>
             <a href="{% url 'Main:index' %}" class="btn btn-outline-dark">Cancelar</a>
+
         </div>
     </div>
 

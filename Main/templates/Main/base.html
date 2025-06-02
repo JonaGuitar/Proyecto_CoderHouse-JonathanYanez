@@ -42,13 +42,27 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMantenedores">
                                 <li><a class="dropdown-item" href="{% url 'Aplicacion:post_agregar_fabricante' %}">Fabricante</a></li>
+                                <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{% url 'Aplicacion:post_agregar_tipo' %}">Tipo</a></li>
+                                <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{% url 'Aplicacion:post_agregar' %}">Vehículos</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="{% url "Main:perfil" %}">Perfil</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url "Aplicacion:acerca" %}">Acerca de</a></li>                        
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Aplicacion:logout' %}">Cerrar Sesion</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarAvatarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {% if avatar_usuario %}
+                                    <img src="{{ avatar_usuario }}" alt="Avatar" class="rounded-circle me-2" width="32" height="32">
+                                {% else %}
+                                    <i class="bi bi-person-circle fs-4 me-2"></i>
+                                {% endif %}
+                                {{ user.username }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarAvatarDropdown">
+                                <li><a class="dropdown-item" href="{% url 'Main:perfil' %}">Perfil</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'Aplicacion:logout' %}">Cerrar Sesión</a></li>
+                            </ul>
+                        </li>
                     {% else %}
                         <li class="nav-item"><a class="nav-link" href="{% url "Aplicacion:post_listar" %}">Publicaciones</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url "Aplicacion:post_buscar" %}">Buscar</a></li>
@@ -146,8 +160,6 @@
                 });
             </script>
         {% endif %}
-
-
 
     </body>
 </html>

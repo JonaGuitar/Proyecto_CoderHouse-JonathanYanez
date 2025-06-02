@@ -43,12 +43,21 @@ class MiFormularioPerfil(forms.ModelForm):
         fields = ['username', 'first_name', 'last_name', 'email',
                   'is_active', 'is_staff', 'is_superuser',
                   'last_login', 'date_joined']
-
+            
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control'
-            field.widget.attrs['disabled'] = True            
+        for name, field in self.fields.items():
+            if isinstance(field, forms.BooleanField):
+                field.widget.attrs.update({
+                    'class': 'form-check-input',
+                    'disabled': True
+                })
+            else:
+                field.widget.attrs.update({
+                    'class': 'form-control',
+                    'disabled': True
+                })
+                        
     
     
     
@@ -59,7 +68,7 @@ class PerfilUsuarioForm(forms.ModelForm):
         model = PerfilUsuario
         fields = ['avatar', 'biografia', 'link', 'fecha_nacimiento']
         widgets = {
-            'biografia': forms.Textarea(attrs={'class': 'form-control'}),
+            'biografia': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
             'link': forms.URLInput(attrs={'class': 'form-control'}),
             'fecha_nacimiento': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
