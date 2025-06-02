@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
+from .models import PerfilUsuario
 
 
 class RegistroUsuarioForm(UserCreationForm):
@@ -49,3 +50,20 @@ class MiFormularioPerfil(forms.ModelForm):
             field.widget.attrs['class'] = 'form-control'
             field.widget.attrs['disabled'] = True            
     
+    
+    
+
+
+class PerfilUsuarioForm(forms.ModelForm):
+    class Meta:
+        model = PerfilUsuario
+        fields = ['avatar', 'biografia', 'link', 'fecha_nacimiento']
+        widgets = {
+            'biografia': forms.Textarea(attrs={'class': 'form-control'}),
+            'link': forms.URLInput(attrs={'class': 'form-control'}),
+            'fecha_nacimiento': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['avatar'].widget.attrs.update({'class': 'form-control'})

@@ -78,7 +78,42 @@
                         </div> 
                     </div>                        
                 </div>
-            
+
+
+                <hr>
+
+                <h5>Información adicional</h5>
+
+                <div class="row">
+                    <div class="mb-3">
+                        <label for="id_avatar" class="form-label">Avatar</label><br>
+                        {% if form_perfil.instance.avatar %}
+                            <img src="{{ form_perfil.instance.avatar.url }}" alt="Avatar" width="100"><br><br>
+                        {% endif %}
+                        {{ form_perfil.avatar }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3">
+                        <label for="id_biografia" class="form-label">Biografía</label>
+                        {{ form_perfil.biografia }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3">
+                        <label for="id_link" class="form-label">Link personal</label>
+                        {{ form_perfil.link }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3">
+                        <label for="id_fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
+                        {{ form_perfil.fecha_nacimiento }}
+                    </div>
+                </div>
 
             </br>
 

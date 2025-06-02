@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from functools import wraps
 from django.http import HttpResponseNotFound
-from .forms import RegistroUsuarioForm, EditUserForm, UserChangeForm, MiFormularioPerfil
+from .forms import RegistroUsuarioForm, EditUserForm, UserChangeForm, MiFormularioPerfil, PerfilUsuarioForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .models import PerfilUsuario
+
 
 # Create your views here.
 def index (request):
@@ -26,9 +28,31 @@ def login_required_404(view_func):
 
 
 @login_required_404
+# def perfil(request):
+#     form = MiFormularioPerfil(instance=request.user)
+#     return render(request, "Main/perfil.html", {'form': form})
+
+# def perfil(request):
+#     form_user = MiFormularioPerfil(instance=request.user)
+#     form_perfil = PerfilUsuarioForm(instance=request.user.perfilusuario)
+
+#     return render(request, "Main/perfil.html", {
+#         'form': form_user,
+#         'form_perfil': form_perfil
+#     })
+    
+
 def perfil(request):
+    # Crea el perfil si no existe
+    perfil, creado = PerfilUsuario.objects.get_or_create(user=request.user)
+    
     form = MiFormularioPerfil(instance=request.user)
-    return render(request, "Main/perfil.html", {'form': form})
+    return render(request, "Main/perfil.html", {
+        'form': form,
+        'perfil_usuario': perfil
+    })
+    
+
 
 
 
