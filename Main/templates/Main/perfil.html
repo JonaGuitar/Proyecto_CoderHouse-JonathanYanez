@@ -87,33 +87,45 @@
                 <div class="row">
                     <div class="mb-3">
                         <label for="id_avatar" class="form-label">Avatar</label><br>
-                        {% if form_perfil.instance.avatar %}
-                            <img src="{{ form_perfil.instance.avatar.url }}" alt="Avatar" width="100"><br><br>
+                        {% if perfil_usuario.instance.avatar %}
+                            <img src="{{ perfil_usuario.instance.avatar.url }}" alt="Avatar" width="100"><br><br>
                         {% endif %}
-                        {{ form_perfil.avatar }}
+                        {{ perfil_usuario.avatar }}
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="mb-3">
                         <label for="id_biografia" class="form-label">Biografía</label>
-                        {{ form_perfil.biografia }}
+                        {{ perfil_usuario.biografia }}
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="mb-3">
                         <label for="id_link" class="form-label">Link personal</label>
-                        {{ form_perfil.link }}
+                        {{ perfil_usuario.link }}
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="mb-3">
                         <label for="id_fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
-                        {{ form_perfil.fecha_nacimiento }}
+                        {{ perfil_usuario.fecha_nacimiento }}
                     </div>
                 </div>
+
+
+
+                {% if perfil_usuario.avatar %}
+                    <img src="{{ perfil_usuario.avatar.url }}" alt="Avatar" width="150" height="150">
+                {% endif %}
+
+                <p><strong>Biografía:</strong> {{ perfil_usuario.biografia }}</p>
+                <p><strong>Link:</strong> <a href="{{ perfil_usuario.link }}" target="_blank">{{ perfil_usuario.link }}</a></p>
+                <p><strong>Fecha de nacimiento:</strong> {{ perfil_usuario.fecha_nacimiento }}</p>
+
+
 
             </br>
 

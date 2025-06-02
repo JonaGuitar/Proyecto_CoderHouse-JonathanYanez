@@ -28,20 +28,6 @@ def login_required_404(view_func):
 
 
 @login_required_404
-# def perfil(request):
-#     form = MiFormularioPerfil(instance=request.user)
-#     return render(request, "Main/perfil.html", {'form': form})
-
-# def perfil(request):
-#     form_user = MiFormularioPerfil(instance=request.user)
-#     form_perfil = PerfilUsuarioForm(instance=request.user.perfilusuario)
-
-#     return render(request, "Main/perfil.html", {
-#         'form': form_user,
-#         'form_perfil': form_perfil
-#     })
-    
-
 def perfil(request):
     # Crea el perfil si no existe
     perfil, creado = PerfilUsuario.objects.get_or_create(user=request.user)
@@ -54,19 +40,26 @@ def perfil(request):
     
 
 
-
-
 @login_required_404
 def editar_perfil(request):
+    perfil_usuario, _ = PerfilUsuario.objects.get_or_create(user=request.user)
+
     if request.method == "POST":
-        form = EditUserForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
+        form_user = EditUserForm(request.POST, instance=request.user)
+        form_perfil = PerfilUsuarioForm(request.POST, request.FILES, instance=perfil_usuario)
+
+        if form_user.is_valid() and form_perfil.is_valid():
+            form_user.save()
+            form_perfil.save()
             return redirect("Main:perfil")
     else:
-        form = EditUserForm(instance=request.user)
+        form_user = EditUserForm(instance=request.user)
+        form_perfil = PerfilUsuarioForm(instance=perfil_usuario)
 
-    return render(request, 'Main/editar_perfil.html', {"form": form})
+    return render(request, 'Main/editar_perfil.html', {
+        "form": form_user,
+        "form_perfil": form_perfil
+    })
     
     
 

@@ -10,9 +10,8 @@
     <div class="card">
         <div class="card-body">
 
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {% comment %} {{ form.as_p }} {% endcomment %}
 
                  <div class="row">
                     <div class="mb-3">
@@ -82,6 +81,35 @@
                         </div> 
                     </div>                        
                 </div>
+
+
+                <hr>
+                
+                <h5>Información del Perfil</h5>
+
+                <div class="mb-3">
+                    <label for="id_avatar" class="form-label">Avatar</label><br>
+                    {{ form_perfil.avatar }}
+                    {% if perfil_usuario.avatar %}
+                        <br><img src="{{ perfil_usuario.avatar.url }}" alt="Avatar" width="100" height="100">
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_biografia" class="form-label">Biografía</label>
+                    {{ form_perfil.biografia }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_link" class="form-label">Enlace personal</label>
+                    {{ form_perfil.link }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
+                    {{ form_perfil.fecha_nacimiento }}
+                </div>
+
 
                 </br>
 
