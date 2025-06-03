@@ -8,7 +8,6 @@ app_name = "Aplicacion"
 urlpatterns = [
     
     path('acerca', views.acerca, name='acerca'),
-    #path('error-404/', views.error_404_demo, name='error_404_demo'),
     
     path('post_listar', views.post_listar, name='post_listar'),
     

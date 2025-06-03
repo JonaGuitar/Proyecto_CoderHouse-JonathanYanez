@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from functools import wraps
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, HttpResponse, HttpResponseRedirect
 from .forms import RegistroUsuarioForm, EditUserForm, UserChangeForm, MiFormularioPerfil, PerfilUsuarioForm
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+
 from django.contrib import messages
 from .models import PerfilUsuario
 
@@ -13,12 +15,21 @@ def index (request):
 
 
 
+# def login_required_404(view_func):    
+#     @wraps(view_func)
+    
+#     def wrapper(request, *args, **kwargs):
+#         if not request.user.is_authenticated:
+#             return HttpResponseNotFound(render(request, 'Main/404.html'))
+#         return view_func(request, *args, **kwargs)
+    
+#     return wrapper
+
 def login_required_404(view_func):    
     @wraps(view_func)
-    
     def wrapper(request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return HttpResponseNotFound(render(request, 'Main/404.html'))
+            return redirect('Main:mostrar_login')  # redirige a /mostrar_login/
         return view_func(request, *args, **kwargs)
     
     return wrapper
@@ -63,7 +74,7 @@ def editar_perfil(request):
     
     
 
- 
+@login_required_404 
 def registrar_usuario(request):
     if request.method == 'POST':
         form = RegistroUsuarioForm(request.POST)
@@ -76,3 +87,34 @@ def registrar_usuario(request):
         
     return render(request, 'Main/registrar_usuario.html', {'form': form})
     
+    
+    
+    
+
+def mostrar_login(request):
+    return render(request, 'Main/login.html')
+
+
+def login_usuario(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('Main:index')
+        else:
+            # Agregamos un mensaje para usar con SweetAlert2
+            messages.error(request, 'Usuario o contraseña incorrectos.')
+            return redirect('Main:mostrar_login')
+    else:
+        return HttpResponse(status=405)
+    
+    
+
+
+def logout_usuario(request):
+    logout(request)
+    return render(request, 'Main/logout.html')

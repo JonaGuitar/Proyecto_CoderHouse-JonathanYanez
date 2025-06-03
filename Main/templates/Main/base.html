@@ -60,14 +60,16 @@
                             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarAvatarDropdown">
                                 <li><a class="dropdown-item" href="{% url 'Main:perfil' %}">Perfil</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{% url 'Aplicacion:logout' %}">Cerrar Sesión</a></li>
+                                {% comment %} <li><a class="dropdown-item" href="{% url 'Aplicacion:logout' %}">Cerrar Sesión</a></li> {# CERRAR SESION REDIRECCIONANDO A INDEX #} {% endcomment %}
+                                <li><a class="dropdown-item" href="{% url 'Main:logout' %}">Cerrar Sesión </a></li> {# CERRAR SESION REDIRECCIONANDO A PAGINA HTML #}
                             </ul>
                         </li>
                     {% else %}
                         <li class="nav-item"><a class="nav-link" href="{% url "Aplicacion:post_listar" %}">Publicaciones</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url "Aplicacion:post_buscar" %}">Buscar</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url "Aplicacion:acerca" %}">Acerca de</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a></li>
+                        {% comment %} <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a></li> {# LOGIN A TRAVES DE MODAL #}  {% endcomment %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Main:mostrar_login' %}" >Login</a></li> {# LOGIN A TRAVES DE PAGINA HTML #}
                     {% endif %}
                 </ul>
             </div>

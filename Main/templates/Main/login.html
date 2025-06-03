@@ -1,0 +1,45 @@
+{% extends "Main/base.html" %}
+
+{% block content_title %}
+
+{% endblock content_title %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow rounded-4">
+                
+                <!-- Imagen superior -->
+                <div class="d-flex justify-content-center align-items-center rounded-top-4" style="height: 120px; background-color: white;">
+                    <i class="bi bi-person-circle" style="font-size: 4rem; color: #6c757d;"></i>
+                </div>
+
+                <div class="card-body">
+                    <form method="post" action="{% url 'Main:login_usuario' %}">
+                        {% csrf_token %}
+
+                        <h5 class="text-center mb-4">Iniciar sesión</h5>
+
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label fw-bold">Usuario</label>
+                            <input type="text" name="username" class="form-control rounded-3" id="id_username" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_password" class="form-label fw-bold">Contraseña</label>
+                            <input type="password" name="password" class="form-control rounded-3" id="id_password" required>
+                        </div>
+
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-secondary rounded-3">Iniciar sesión</button>
+                        </div>
+
+                        <div class="text-center">
+                            <small>¿No tienes cuenta? <a href="{% url 'Main:registrar_usuario' %}" class="text-decoration-none">Regístrate</a></small>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -60,9 +60,6 @@ class MiFormularioPerfil(forms.ModelForm):
                         
     
     
-    
-
-
 class PerfilUsuarioForm(forms.ModelForm):
     class Meta:
         model = PerfilUsuario

@@ -200,28 +200,6 @@ def post_eliminar_tipo(request, tipo_id):
 
 
 
-
-
-
-
-
-# def login_modal(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-
-#         user = authenticate(request, username=username, password=password)
-        
-#         if user is not None:
-#             login(request, user)
-#             return redirect(request.META.get('HTTP_REFERER', '/'))  # Redirige a la página anterior
-#         else:
-#             return render(request, 'login_error.html', {'error': 'Credenciales inválidas'})
-#     else:
-#         return HttpResponse(status=405)  # Método no permitido si no es POST
-
-
-
 def login_modal(request):
     if request.method == 'POST':
         username = request.POST.get('username')

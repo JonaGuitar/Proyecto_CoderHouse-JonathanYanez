@@ -1,0 +1,24 @@
+{% extends "Main/base.html" %}
+
+{% block content_title %}
+
+{% endblock content_title %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body text-center p-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-door-closed text-primary mb-3" viewBox="0 0 16 16">
+                        <path d="M3 2a1 1 0 0 0-1 1v11H1v1h14v-1h-1V3a1 1 0 0 0-1-1H3Zm0 1h10v11H3V3Zm5 5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 8 8Z"/>
+                    </svg>
+                    <h2 class="card-title mb-3">Sesión cerrada</h2>
+                    <p class="card-text text-muted">Has cerrado sesión correctamente. Puedes volver a iniciar sesión cuando lo desees.</p>
+                    <a href="{% url 'Main:index' %}" class="btn btn-primary mt-3">Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
