@@ -15,16 +15,6 @@ def index (request):
 
 
 
-# def login_required_404(view_func):    
-#     @wraps(view_func)
-    
-#     def wrapper(request, *args, **kwargs):
-#         if not request.user.is_authenticated:
-#             return HttpResponseNotFound(render(request, 'Main/404.html'))
-#         return view_func(request, *args, **kwargs)
-    
-#     return wrapper
-
 def login_required_404(view_func):    
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
