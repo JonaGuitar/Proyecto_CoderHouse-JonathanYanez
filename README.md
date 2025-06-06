@@ -83,3 +83,5 @@ Consignas Finales para curso Python
 ## LOGIN
 
   para el Login hay que tener creado un super usuario en django
+
+  XXX
