@@ -39,7 +39,7 @@
                 </br>
 
                 <button type="submit" class="btn btn-success">Guardar</button>
-                <a href="{% url 'Aplicacion:post_listar' %}" class="btn btn-secondary">Cancelar</a>
+                <a href="{% url 'Aplicacion:post_listar' %}" class="btn btn-outline-dark">Cancelar</a>
             </form>
 
             </br>
@@ -56,6 +56,7 @@
                         <th>Pais</th>
                         <th>Fabricante</th>
                         <th>Tipo de Vehiculo</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,6 +89,10 @@
                                         data-id="{{ vehiculo.id }}">
                                     Eliminar
                                 </button>
+
+                                <a href="{% url 'Aplicacion:detalle_vehiculo_crear' %}?vehiculo_id={{ vehiculo.id }}" class="btn btn-success btn-sm">AGREGAR DETALLE</a>  
+                                <a href="{% url 'Aplicacion:detalle_vehiculo_editar' %}?vehiculo_id={{ vehiculo.id }}" class="btn btn-primary btn-sm">EDITAR DETALLE</a>                         
+
                             </td>
                         </tr>
 
@@ -146,8 +151,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Actualizar</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Actualizar</button>
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
             </div>
@@ -167,7 +172,7 @@
                     El Vehiculo fue registrado correctamente.
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -196,7 +201,7 @@
                     El vehículo fue eliminado correctamente.
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -227,9 +232,9 @@
                     <div class="modal-body">
                         ¿Estás seguro de que deseas eliminar este vehículo?
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <div class="modal-footer">                        
                         <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
             </div>

@@ -34,7 +34,29 @@ class Post(models.Model):
         fabricante_nombre = self.fabricante.nombre if self.fabricante else "Sin fabricante"
         tipo = self.tipo_vehiculo.tipo if self.tipo_vehiculo else "Sin tipo"
         return f"{self.marca} {self.modelo} - {fabricante_nombre} - {tipo} - {self.pais}"
+    
+    
+    
 
+
+class DetalleVehiculo(models.Model):
+    post = models.OneToOneField(Post, on_delete=models.CASCADE, related_name='detalle')
+    version = models.CharField(max_length=100)
+    motor = models.CharField(max_length=100)
+    cilindrada = models.CharField(max_length=100)
+    transmision = models.CharField(max_length=100)
+    velocidades = models.PositiveIntegerField()
+    combustible = models.CharField(max_length=100)
+    rendimiento_ciudad = models.CharField(max_length=100)
+    rendimiento_carretera = models.CharField(max_length=100)
+    rendimiento_mixto = models.CharField(max_length=100)
+    puertas = models.PositiveIntegerField()
+    asientos = models.PositiveIntegerField()
+    llantas = models.CharField(max_length=100)
+    llantas_tamano = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"Detalles de {self.post.marca} {self.post.modelo}"
 
 
 

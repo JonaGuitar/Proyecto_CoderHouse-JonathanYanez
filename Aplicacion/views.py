@@ -1,13 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post, Fabricante, TipoVehiculo
-from .forms import PostForm, FabricanteForm, TipoVehiculoForm
+from .models import Post, Fabricante, TipoVehiculo, DetalleVehiculo
+from .forms import PostForm, FabricanteForm, TipoVehiculoForm, DetalleVehiculoForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from Main.views import login_required_404
 from django.contrib import messages
+from django.views.generic import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView
+from django.http import Http404
+
 
 
 def acerca(request):
@@ -197,6 +201,73 @@ def post_eliminar_tipo(request, tipo_id):
         tipo.delete()
         return HttpResponseRedirect(reverse('Aplicacion:post_agregar_tipo') + '?eliminado=1')
     return redirect('Aplicacion:post_agregar_tipo')
+
+
+
+
+
+
+
+class DetalleVehiculoCreateView(CreateView):
+    model = DetalleVehiculo
+    form_class = DetalleVehiculoForm
+    template_name = 'Aplicacion/detalle_vehiculo_form.html'
+    success_url = reverse_lazy('Aplicacion:post_agregar')
+
+    def get_initial(self):
+        initial = super().get_initial()
+        vehiculo_id = self.request.GET.get('vehiculo_id')
+        if vehiculo_id:
+            initial['post'] = vehiculo_id
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['posts'] = Post.objects.all()
+        return context
+
+    def form_valid(self, form):
+        post_id = self.request.POST.get('post')
+        if post_id:
+            try:
+                post_instance = Post.objects.get(id=post_id)
+                form.instance.post = post_instance
+                return super().form_valid(form)
+            except Post.DoesNotExist:
+                form.add_error(None, 'El vehículo seleccionado no existe.')
+                return self.form_invalid(form)
+        else:
+            form.add_error(None, 'Debe seleccionar un vehículo.')
+            return self.form_invalid(form)
+
+
+
+class DetalleVehiculoUpdateView(UpdateView):
+    model = DetalleVehiculo
+    form_class = DetalleVehiculoForm
+    template_name = 'Aplicacion/detalle_vehiculo_edit.html'  # <-- usa esta
+
+    success_url = reverse_lazy('Aplicacion:post_agregar')
+
+    def get_object(self, queryset=None):
+        vehiculo_id = self.request.GET.get('vehiculo_id')
+        if not vehiculo_id:
+            raise Http404("No se especificó vehículo")
+        return get_object_or_404(DetalleVehiculo, post__id=vehiculo_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['posts'] = Post.objects.all()
+        return context
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, Fabricante, TipoVehiculo
+from .models import Post, Fabricante, TipoVehiculo, DetalleVehiculo
 
   
 class FabricanteForm(forms.ModelForm):
@@ -36,3 +36,28 @@ class PostForm(forms.ModelForm):
             'pais': forms.TextInput(attrs={'class': 'form-control'}),
         }  
         
+        
+        
+class DetalleVehiculoForm(forms.ModelForm):
+    class Meta:
+        model = DetalleVehiculo
+        fields = [
+            'version', 'motor', 'cilindrada', 'transmision', 'velocidades', 'combustible',
+            'rendimiento_ciudad', 'rendimiento_carretera', 'rendimiento_mixto',
+            'puertas', 'asientos', 'llantas', 'llantas_tamano'
+        ]
+        widgets = {
+            'version': forms.TextInput(attrs={'class': 'form-control'}),
+            'motor': forms.TextInput(attrs={'class': 'form-control'}),
+            'cilindrada': forms.TextInput(attrs={'class': 'form-control'}),
+            'transmision': forms.TextInput(attrs={'class': 'form-control'}),
+            'velocidades': forms.NumberInput(attrs={'class': 'form-control'}),
+            'combustible': forms.TextInput(attrs={'class': 'form-control'}),
+            'rendimiento_ciudad': forms.TextInput(attrs={'class': 'form-control'}),
+            'rendimiento_carretera': forms.TextInput(attrs={'class': 'form-control'}),
+            'rendimiento_mixto': forms.TextInput(attrs={'class': 'form-control'}),
+            'puertas': forms.NumberInput(attrs={'class': 'form-control'}),
+            'asientos': forms.NumberInput(attrs={'class': 'form-control'}),
+            'llantas': forms.TextInput(attrs={'class': 'form-control'}),
+            'llantas_tamano': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
