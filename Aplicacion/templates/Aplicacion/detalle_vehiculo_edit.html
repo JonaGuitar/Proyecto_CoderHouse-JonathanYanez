@@ -5,29 +5,36 @@
 {% endblock content_title %}
 
 {% block content %}
-<div class="card">
-    <div class="card-body">
-        <form method="post">
-            {% csrf_token %}
 
-            <div class="mb-3">
-                <label for="id_post" class="form-label">Vehículo</label>
-                <select id="id_post_display" class="form-select" disabled>
-                    <option value="">Seleccione un vehículo</option>
-                    {% for post in posts %}
-                        <option value="{{ post.id }}" {% if post.id|stringformat:"s" == object.post.id|stringformat:"s" %}selected{% endif %}>
-                            {{ post.marca }} {{ post.modelo }}
-                        </option>
+    <div class="card">
+        <div class="card-header">
+            VEHICULO: <strong>{{ object.post.marca }} {{ object.post.modelo }}</strong>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Campos del formulario -->
+                <div class="row">
+                    {% for field in form.visible_fields %}
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="text-danger">{{ field.errors }}</div>
+                            {% endif %}
+                        </div>
                     {% endfor %}
-                </select>
-                <input type="hidden" name="post" value="{{ object.post.id }}">
-            </div>
+                </div>
 
-            {{ form.as_p }}
-
-            <button type="submit" class="btn btn-primary">Actualizar Detalle</button>
-            <a href="{% url 'Aplicacion:post_agregar' %}" class="btn btn-outline-dark">Volver</a>
-        </form>
+                <!-- Botones -->
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">Actualizar Detalle</button>
+                    <a href="{% url 'Aplicacion:post_agregar' %}" class="btn btn-outline-dark">Volver</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+
+
 {% endblock content %}

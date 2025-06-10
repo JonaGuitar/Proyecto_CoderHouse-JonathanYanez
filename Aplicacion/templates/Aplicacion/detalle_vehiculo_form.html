@@ -5,7 +5,7 @@
 {% endblock content_title %}
 
 {% block content %}
-<div class="card">
+{% comment %} <div class="card">
     <div class="card-body">
         <form method="post">
             {% csrf_token %}
@@ -31,6 +31,48 @@
             <a href="{% url 'Aplicacion:post_agregar' %}" class="btn btn-outline-dark">Volver</a>
         </form>
     </div>
-</div>
+</div> {% endcomment %}
+
+
+    <div class="card">
+        <div class="card-header">
+            Agregar Detalle para: 
+            <strong>
+                {% for post in posts %}
+                    {% if post.id|stringformat:"s" == form.initial.post|stringformat:"s" %}
+                        {{ post.marca }} {{ post.modelo }}
+                    {% endif %}
+                {% endfor %}
+            </strong>
+        </div>
+
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                
+                <!-- Campo oculto para que se guarde el post seleccionado -->
+                <input type="hidden" name="post" value="{{ form.initial.post }}">
+
+                <div class="row">
+                    {% for field in form.visible_fields %}
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="text-danger">{{ field.errors }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success">Guardar Detalle</button>
+                    <a href="{% url 'Aplicacion:post_agregar' %}" class="btn btn-outline-dark">Volver</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
 {% endblock content %}
 
