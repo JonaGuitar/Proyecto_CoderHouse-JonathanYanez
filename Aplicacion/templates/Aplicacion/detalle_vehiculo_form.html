@@ -5,33 +5,7 @@
 {% endblock content_title %}
 
 {% block content %}
-{% comment %} <div class="card">
-    <div class="card-body">
-        <form method="post">
-            {% csrf_token %}
 
-            <div class="mb-3">
-                <label for="id_post" class="form-label">Vehículo</label>
-                <select id="id_post_display" class="form-select" disabled>
-                    <option value="">Seleccione un vehículo</option>
-                    {% for post in posts %}
-                        <option value="{{ post.id }}" {% if post.id|stringformat:"s" == form.initial.post|stringformat:"s" %}selected{% endif %}>
-                            {{ post.marca }} {{ post.modelo }}
-                        </option>
-                    {% endfor %}
-                </select>
-                <input type="hidden" name="post" value="{{ form.initial.post }}">
-
-
-            </div>
-
-            {{ form.as_p }}
-
-            <button type="submit" class="btn btn-success">Guardar Detalle</button>
-            <a href="{% url 'Aplicacion:post_agregar' %}" class="btn btn-outline-dark">Volver</a>
-        </form>
-    </div>
-</div> {% endcomment %}
 
 
     <div class="card">
