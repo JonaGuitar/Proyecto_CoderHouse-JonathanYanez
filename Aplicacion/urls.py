@@ -26,7 +26,7 @@ urlpatterns = [
     path('post_eliminar_tipo/<int:tipo_id>/', views.post_eliminar_tipo, name='post_eliminar_tipo'),
     path('post_editar_tipo/<int:tipo_id>/', views.post_editar_tipo, name='post_editar_tipo'),   
 
-    path('detalle_vehiculo/crear/', DetalleVehiculoCreateView.as_view(), name='detalle_vehiculo_crear'),
+    path('detalle_vehiculo_crear', views.DetalleVehiculoCreateView.as_view(), name='detalle_vehiculo_crear'),
     path('detalle_vehiculo/editar/', DetalleVehiculoUpdateView.as_view(), name='detalle_vehiculo_editar'),
 
     path('login-modal/', views.login_modal, name='login_modal'),

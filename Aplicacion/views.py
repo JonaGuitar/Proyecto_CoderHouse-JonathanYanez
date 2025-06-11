@@ -232,6 +232,7 @@ class DetalleVehiculoCreateView(CreateView):
             try:
                 post_instance = Post.objects.get(id=post_id)
                 form.instance.post = post_instance
+                messages.success(self.request, 'Detalle del vehículo guardado correctamente.')
                 return super().form_valid(form)
             except Post.DoesNotExist:
                 form.add_error(None, 'El vehículo seleccionado no existe.')
@@ -245,8 +246,7 @@ class DetalleVehiculoCreateView(CreateView):
 class DetalleVehiculoUpdateView(UpdateView):
     model = DetalleVehiculo
     form_class = DetalleVehiculoForm
-    template_name = 'Aplicacion/detalle_vehiculo_edit.html'  # <-- usa esta
-
+    template_name = 'Aplicacion/detalle_vehiculo_edit.html'
     success_url = reverse_lazy('Aplicacion:post_agregar')
 
     def get_object(self, queryset=None):
@@ -260,7 +260,9 @@ class DetalleVehiculoUpdateView(UpdateView):
         context['posts'] = Post.objects.all()
         return context
 
-
+    def form_valid(self, form):
+        messages.success(self.request, 'Detalle del vehículo actualizado correctamente.')
+        return super().form_valid(form)
 
 
 

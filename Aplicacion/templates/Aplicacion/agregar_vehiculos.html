@@ -8,38 +8,40 @@
 
     <div class="card">
         <div class="card-body">
-            <form method="post">
+            <form method="post" class="row g-3">
                 {% csrf_token %}
-                
-                <div class="mb-3">
+
+
+                <div class="col-md-4">
                     <label for="id_marca" class="form-label">Marca</label>
                     {{ form.marca }}
                 </div>
-
-                <div class="mb-3">
+                <div class="col-md-4">
                     <label for="id_modelo" class="form-label">Modelo</label>
                     {{ form.modelo }}
                 </div>
-
-                <div class="mb-3">
+                <div class="col-md-4">
                     <label for="id_pais" class="form-label">País</label>
                     {{ form.pais }}
                 </div>
-
-                <div class="mb-3">
+                <div class="col-md-6">
                     <label for="id_fabricante" class="form-label">Fabricante</label>
                     {{ form.fabricante }}
                 </div>
-
-                <div class="mb-3">
+                <div class="col-md-6">
                     <label for="id_tipo_vehiculo" class="form-label">Tipo de Vehículo</label>
                     {{ form.tipo_vehiculo }}
                 </div>
 
                 </br>
+                </br>
 
-                <button type="submit" class="btn btn-success">Guardar</button>
-                <a href="{% url 'Aplicacion:post_listar' %}" class="btn btn-outline-dark">Cancelar</a>
+                <div class="col-12 mt-5">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <a href="{% url 'Aplicacion:post_listar' %}" class="btn btn-outline-dark">Cancelar</a>
+                </div>
+
+
             </form>
 
             </br>
@@ -47,6 +49,8 @@
             <hr>
 
             <h4 class="mt-4">Vehiculos registrados</h4>
+
+            </br>
 
             <table class="table table-striped mt-2">
                 <thead class="table-dark">
