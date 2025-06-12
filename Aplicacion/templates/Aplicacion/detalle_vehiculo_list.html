@@ -5,37 +5,53 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Información del Vehículo</h2>
 
-    <ul class="list-group mb-4">
-        <li class="list-group-item"><strong>Marca:</strong> {{ vehiculo.marca }}</li>
-        <li class="list-group-item"><strong>Modelo:</strong> {{ vehiculo.modelo }}</li>
-        <li class="list-group-item"><strong>País:</strong> {{ vehiculo.pais }}</li>
-        <li class="list-group-item"><strong>Fabricante:</strong> {{ vehiculo.fabricante.nombre }}</li>
-        <li class="list-group-item"><strong>Tipo de Vehículo:</strong> {{ vehiculo.tipo_vehiculo.tipo }}</li>
-    </ul>
+    <div class="card border-success mb-3">
+        <div class="card-header">
+            Información del Vehículo
+        </div>
+        <div class="card-body">
+            <ul class="list-group mb-4 text-success">
+                <li class="list-group-item"><strong>Marca:</strong> {{ vehiculo.marca }}</li>
+                <li class="list-group-item"><strong>Modelo:</strong> {{ vehiculo.modelo }}</li>
+                <li class="list-group-item"><strong>País:</strong> {{ vehiculo.pais }}</li>
+                <li class="list-group-item"><strong>Fabricante:</strong> {{ vehiculo.fabricante.nombre }}</li>
+                <li class="list-group-item"><strong>Tipo de Vehículo:</strong> {{ vehiculo.tipo_vehiculo.tipo }}</li>
+            </ul>
+        </div>
+    </div>
 
-    <h3>Detalle Asociado</h3>
 
-    {% if detalle %}
-        <ul class="list-group">
-            <li class="list-group-item"><strong>Color:</strong> {{ detalle.version }}</li>
-            <li class="list-group-item"><strong>Motor:</strong> {{ detalle.motor }}</li>
-            <li class="list-group-item"><strong>cilindrada:</strong> {{ detalle.cilindrada }}</li>
-            <li class="list-group-item"><strong>transmision:</strong> {{ detalle.transmision }}</li>
-            <li class="list-group-item"><strong>velocidades:</strong> {{ detalle.velocidades }}</li>
-            <li class="list-group-item"><strong>combustible:</strong> {{ detalle.combustible }}</li>
-            <li class="list-group-item"><strong>Rendimiento ciudad:</strong> {{ detalle.rendimiento_ciudad }}</li>
-            <li class="list-group-item"><strong>Rendimiento carretera:</strong> {{ detalle.rendimiento_carretera }}</li>
-            <li class="list-group-item"><strong>Rendimiento mixto:</strong> {{ detalle.rendimiento_mixto }}</li>
-            <li class="list-group-item"><strong>N° Puertas:</strong> {{ detalle.puertas }}</li>
-            <li class="list-group-item"><strong>N° Asientos:</strong> {{ detalle.asientos }}</li>
-            <li class="list-group-item"><strong>Material Llantas:</strong> {{ detalle.llantas }}</li>
-            <li class="list-group-item"><strong>Tamaño Llantas:</strong> {{ detalle.llantas_tamano }}</li>
-        </ul>
-    {% else %}
-        <p>No hay detalle asociado a este vehículo.</p>
-    {% endif %}
+    <div class="card border-success mb-3">
+        <div class="card-header">
+            Detalle del Vehiculo
+        </div>
+        <div class="card-body text-success">
+            {% if detalle %}
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>Color:</strong> {{ detalle.version }}</li>
+                    <li class="list-group-item"><strong>Motor:</strong> {{ detalle.motor }}</li>
+                    <li class="list-group-item"><strong>cilindrada:</strong> {{ detalle.cilindrada }}</li>
+                    <li class="list-group-item"><strong>transmision:</strong> {{ detalle.transmision }}</li>
+                    <li class="list-group-item"><strong>velocidades:</strong> {{ detalle.velocidades }}</li>
+                    <li class="list-group-item"><strong>combustible:</strong> {{ detalle.combustible }}</li>
+                    <li class="list-group-item"><strong>Rendimiento ciudad:</strong> {{ detalle.rendimiento_ciudad }}</li>
+                    <li class="list-group-item"><strong>Rendimiento carretera:</strong> {{ detalle.rendimiento_carretera }}</li>
+                    <li class="list-group-item"><strong>Rendimiento mixto:</strong> {{ detalle.rendimiento_mixto }}</li>
+                    <li class="list-group-item"><strong>N° Puertas:</strong> {{ detalle.puertas }}</li>
+                    <li class="list-group-item"><strong>N° Asientos:</strong> {{ detalle.asientos }}</li>
+                    <li class="list-group-item"><strong>Material Llantas:</strong> {{ detalle.llantas }}</li>
+                    <li class="list-group-item"><strong>Tamaño Llantas:</strong> {{ detalle.llantas_tamano }}</li>
+                </ul>
+            {% else %}
+                <p>No hay detalle asociado a este vehículo.</p>
+            {% endif %}
+        </div>
+    </div>    
+
+
+
+
 
     <a href="{% url 'Aplicacion:post_agregar' %}" class="btn btn-secondary mt-3">Volver</a>
 {% endblock %}

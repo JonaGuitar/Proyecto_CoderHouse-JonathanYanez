@@ -29,8 +29,3 @@ urlpatterns = [
     path("Aplicacion/", include("Aplicacion.urls", namespace="Aplicacion")),    
 ]
 
-
-def custom_404(request, exception):
-    return render(request, 'Main/404.html', status=404)
-
-handler404 = custom_404

@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
 from functools import wraps
-from django.http import HttpResponseNotFound, HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseNotFound, HttpResponse, HttpResponseRedirect, Http404
 from .forms import RegistroUsuarioForm, EditUserForm, UserChangeForm, MiFormularioPerfil, PerfilUsuarioForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
 from django.contrib import messages
 from .models import PerfilUsuario
 
@@ -25,7 +24,8 @@ def login_required_404(view_func):
     return wrapper
 
 
-
+def ver_404(request):
+    return render(request, 'Main/404.html', status=404)
 
 
 @login_required_404

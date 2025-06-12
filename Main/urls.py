@@ -18,6 +18,7 @@ urlpatterns = [
     path('mostrar_login/', views.mostrar_login, name='mostrar_login'),
     path('login_usuario/', views.login_usuario, name='login_usuario'), 
     path('logout/', views.logout_usuario, name='logout'),
+    path('ver-error-404/', views.ver_404, name='ver_404'),
 ]
 
 if settings.DEBUG:
