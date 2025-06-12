@@ -18,23 +18,66 @@
 
     {% if Posts %}
         {% for post in Posts %}
+
+
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="row align-items-center">              
+                        
                         <div class="col-md-2 text-center">
                             <i class="bi bi-car-front-fill display-4 text-warning"></i>
                         </div>
+                        
+
+                        <!-- Contenido a la derecha -->
                         <div class="col-md-10">
-                            <h5 class="card-title mb-1">Marca: {{ post.marca }}</h5>
-                            <p class="card-text mb-1">Modelo: {{ post.modelo }}</p>
-                            <p class="card-text"><small class="text-muted">País: {{ post.pais }}</small></p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                <h5 class="card-title mb-1">Marca: {{ post.marca }}</h5>
+                                <p class="card-text mb-1">Modelo: {{ post.modelo }}</p>
+                                <p class="card-text mb-1">Tipo: {{ post.tipo_vehiculo }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                <p class="card-text mb-1">País: {{ post.pais }}</p>
+                                <p class="card-text mb-1">Fabricante: {{ post.fabricante }}</p>
+                                </div>
+                            </div>
+
+                            {% if post.detalle %}
+                                <hr>
+                                <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row mb-1"><div class="col-5 fw-bold">Versión</div><div class="col-7">: {{ post.detalle.version }}</div></div>
+                                    <div class="row mb-1"><div class="col-5 fw-bold">Motor</div><div class="col-7">: {{ post.detalle.motor }}</div></div>
+                                    <div class="row mb-1"><div class="col-5 fw-bold">Cilindrada</div><div class="col-7">: {{ post.detalle.cilindrada }}</div></div>
+                                    <div class="row mb-1"><div class="col-5 fw-bold">Transmisión</div><div class="col-7">: {{ post.detalle.transmision }}</div></div>
+                                    <div class="row mb-1"><div class="col-5 fw-bold">Velocidades</div><div class="col-7">: {{ post.detalle.velocidades }}</div></div>
+                                    <div class="row mb-1"><div class="col-5 fw-bold">Combustible</div><div class="col-7">: {{ post.detalle.combustible }}</div></div>                                    
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row mb-1"><div class="col-5 fw-bold">Rend. Ciudad</div><div class="col-7">: {{ post.detalle.rendimiento_ciudad }}</div></div>
+                                    <div class="row mb-1"><div class="col-5 fw-bold">Rend. Carretera</div><div class="col-7">: {{ post.detalle.rendimiento_carretera }}</div></div>
+                                    <div class="row mb-1"><div class="col-5 fw-bold">Rend. Mixto</div><div class="col-7">: {{ post.detalle.rendimiento_mixto }}</div></div>
+                                    <div class="row mb-1"><div class="col-5 fw-bold">Puertas</div><div class="col-7">: {{ post.detalle.puertas }}</div></div>
+                                    <div class="row mb-1"><div class="col-5 fw-bold">Asientos</div><div class="col-7">: {{ post.detalle.asientos }}</div></div>
+                                    <div class="row mb-1"><div class="col-5 fw-bold">Llantas</div><div class="col-7">: {{ post.detalle.llantas }}</div></div>
+                                    <div class="row mb-1"><div class="col-5 fw-bold">Tamaño llantas</div><div class="col-7">: {{ post.detalle.llantas_tamano }}</div></div>
+                                </div>
+                                </div>
+                            {% else %}
+                                <p class="text-muted"><small>Sin detalles registrados.</small></p>
+                            {% endif %}
+
+
                         </div>
+
                     </div>
                 </div>
                 <div class="card-footer text-muted text-end">
                     Publicado el {{ post.fecha_publicacion }}
                 </div>
             </div>
+
         {% endfor %}
     {% else %}
         <!-- Modal Bootstrap si no hay resultados -->
