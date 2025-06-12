@@ -8,8 +8,8 @@ from django.db.models import Q
 from django.urls import reverse, reverse_lazy
 from Main.views import login_required_404
 from django.contrib import messages
-from django.views.generic import CreateView, UpdateView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DeleteView
+#from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import Http404
 
 
@@ -267,7 +267,20 @@ class DetalleVehiculoUpdateView(UpdateView):
 
 
 
+class DetalleVehiculoDeleteView(DeleteView):
+    model = DetalleVehiculo
+    template_name = 'Aplicacion/detalle_vehiculo_delete.html'
+    success_url = reverse_lazy('Aplicacion:post_agregar')
 
+    def get_object(self, queryset=None):
+        vehiculo_id = self.request.GET.get('vehiculo_id')
+        if not vehiculo_id:
+            raise Http404("No se especificó vehículo")
+        return get_object_or_404(DetalleVehiculo, post__id=vehiculo_id)
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, 'Detalle del vehículo eliminado correctamente.')
+        return super().delete(request, *args, **kwargs)
 
 
 

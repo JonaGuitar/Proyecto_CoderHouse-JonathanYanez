@@ -1,0 +1,27 @@
+{% extends "Main/base.html" %}
+
+{% block content_title %}
+    Eliminar Detalle Vehículo (VBC)
+{% endblock content_title %}
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-header">
+            VEHICULO: <strong>{{ object.post.marca }} {{ object.post.modelo }}</strong>
+        </div>
+        <div class="card-body">
+            <h2>¿Estás seguro que deseas eliminar este detalle del vehículo: {{ object.post.marca }} {{ object.post.modelo }}?</h2>
+            </br>
+            </br>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                <a href="{% url 'Aplicacion:post_agregar' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock content %}
+

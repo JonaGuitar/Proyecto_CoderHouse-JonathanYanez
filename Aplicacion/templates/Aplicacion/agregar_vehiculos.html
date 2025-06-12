@@ -60,7 +60,8 @@
                         <th>Pais</th>
                         <th>Fabricante</th>
                         <th>Tipo de Vehiculo</th>
-                        <th>Acciones</th>
+                        <th>Acciones Vehiculo</th>
+                        <th>Acciones Detalle</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -92,12 +93,13 @@
                                         data-bs-target="#modalConfirmarEliminacion"
                                         data-id="{{ vehiculo.id }}">
                                     Eliminar
-                                </button>
-
-                                <a href="{% url 'Aplicacion:detalle_vehiculo_crear' %}?vehiculo_id={{ vehiculo.id }}" class="btn btn-success btn-sm">AGREGAR DETALLE</a>  
-                                <a href="{% url 'Aplicacion:detalle_vehiculo_editar' %}?vehiculo_id={{ vehiculo.id }}" class="btn btn-primary btn-sm">EDITAR DETALLE</a>                         
-
+                                </button>                        
                             </td>
+                            <td>
+                                <a href="{% url 'Aplicacion:detalle_vehiculo_crear' %}?vehiculo_id={{ vehiculo.id }}" class="btn btn-success btn-sm">AGREGAR DETALLE</a>  
+                                <a href="{% url 'Aplicacion:detalle_vehiculo_editar' %}?vehiculo_id={{ vehiculo.id }}" class="btn btn-primary btn-sm">EDITAR DETALLE</a>
+                                <a href="{% url 'Aplicacion:detalle_vehiculo_eliminar' %}?vehiculo_id={{ vehiculo.id }}" class="btn btn-danger btn-sm">ELIMINAR DETALLE</a>
+                            </td>                            
                         </tr>
 
                         {% empty %}
