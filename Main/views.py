@@ -64,7 +64,7 @@ def editar_perfil(request):
     
     
 
-@login_required_404 
+# @login_required_404 
 def registrar_usuario(request):
     if request.method == 'POST':
         form = RegistroUsuarioForm(request.POST)
