@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.urls import reverse, reverse_lazy
 from Main.views import login_required_404
 from django.contrib import messages
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, TemplateView
 #from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import Http404
 
@@ -281,6 +281,25 @@ class DetalleVehiculoDeleteView(DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(request, 'Detalle del vehículo eliminado correctamente.')
         return super().delete(request, *args, **kwargs)
+    
+    
+
+class DetalleVehiculoListView(TemplateView):
+    template_name = 'Aplicacion/detalle_vehiculo_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        vehiculo_id = self.request.GET.get('vehiculo_id')
+
+        if not vehiculo_id:
+            raise Http404("No se especificó el vehículo")
+
+        vehiculo = get_object_or_404(Post, id=vehiculo_id)
+        detalle = DetalleVehiculo.objects.filter(post=vehiculo).first()  # solo uno, o podrías usar all()
+
+        context['vehiculo'] = vehiculo
+        context['detalle'] = detalle
+        return context
 
 
 

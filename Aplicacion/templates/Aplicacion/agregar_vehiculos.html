@@ -37,7 +37,7 @@
                 </br>
 
                 <div class="col-12 mt-5">
-                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="submit" class="btn btn-success">Guardar</button>                    
                     <a href="{% url 'Aplicacion:post_listar' %}" class="btn btn-outline-dark">Cancelar</a>
                 </div>
 
@@ -99,6 +99,7 @@
                                 <a href="{% url 'Aplicacion:detalle_vehiculo_crear' %}?vehiculo_id={{ vehiculo.id }}" class="btn btn-success btn-sm">AGREGAR DETALLE</a>  
                                 <a href="{% url 'Aplicacion:detalle_vehiculo_editar' %}?vehiculo_id={{ vehiculo.id }}" class="btn btn-primary btn-sm">EDITAR DETALLE</a>
                                 <a href="{% url 'Aplicacion:detalle_vehiculo_eliminar' %}?vehiculo_id={{ vehiculo.id }}" class="btn btn-danger btn-sm">ELIMINAR DETALLE</a>
+                                <a href="{% url 'Aplicacion:detalle_vehiculo_list' %}?vehiculo_id={{ vehiculo.id }}" class="btn btn-warning btn-sm">VER DETALLE</a>
                             </td>                            
                         </tr>
 
